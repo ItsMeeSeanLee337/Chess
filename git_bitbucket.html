@@ -1,0 +1,592 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <style>
+    
+   body { width: 90%; margin-left: 5%; font: 14px sans-serif, Trebuchet MS, Arial}
+
+        pre, tt {
+            color: blue;
+        }
+	a, a:visited {
+	    color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<center>
+    <h1>CS 213: Git and Bitbucket Walkthrough</h1>
+</center>
+
+<hr>
+
+<h2>Some Git Resources</h2>
+<ul>
+    <li><a href="https://git-scm.com/">Git Site</a>
+    </li>
+    <li><a href="http://rogerdudler.github.io/git-guide/">Very simple git guide</a>
+    </li>
+    <li><a href="https://www.atlassian.com/git/tutorials/">Git Tutorial</a>
+    </li>
+    <li><a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">Another Git Tutorial</a></li>
+    <li><a href="https://try.github.io/">Try Git: Code School</a></li>
+</ul>
+Plus there are many Git tutorial videos on YouTube.
+
+<hr>
+
+<h2>Git and Bitbucket How-To</h2>
+
+<p>
+    Git is a distributed version control system, and is the approved method of collaboration for cs213 this semester. It
+    is also required for handing in programming assignments.
+</p>
+
+<p>
+    The only way that a student should share code with other students in his or her group is via the git push or pull
+    command. It is important that all of a particular student's work be reflected in the commit logs for the project. In
+    the event that the teaching staff is notified that a particular student isn't doing his or her fair share of the
+    work, the commit log will be an important resource for verifying (or debunking) this claim.
+</p>
+
+<p>
+    Before following the walkthrough, ensure that you have a working copy of git on your computer. The following examples on using Git 
+    show the command line version of the program. Some of you may
+    wish to use some GUI git client or a Git plugin in your IDE.
+    This is fine, but keep in mind that the cs213 staff will only promise to be able to support the command line
+    git tool.
+</p>
+
+<p>
+    The following walkthrough will have you set up a throw-away repository and collaborate with other students. You will
+    need to create a new repository for each cs213 project.
+</p>
+
+<h3>
+    1) Set up an account on <a href="https://bitbucket.org/">Bitbucket</a>
+</h3>
+
+<h3>
+    2) Create a new repository
+</h3>
+
+<ul>
+  <li>Project name: You don't have to have a name (repositories are grouped by
+    project), but if you would like, you may want to use "CS213" as the name, this
+    way all your 213 repos will be under this project.
+    <p>  <li>Repository name: You can use any name you want for your repository (
+	remember, each assignment will have its own repo), but it might
+    make sense to go with <br>&lt;assignment name>XX where XX is your group number.
+
+    <p>    <li>Access level: <font color="red">The default setting for Access level is
+	  "Private Repository". Make sure to keep it that way.
+	</font> This ensures that other students (and the world at large), who are not members of your group,
+	cannot have access to your work. It is a question of academic integrity.
+        <p></p>
+	<p><li>Include a README?: Optional. If you feel like you want to communicate
+	    some particulars of project setup/build to your grader, you can do that via the README. (You can also do this as a file in your project source (perhaps
+	    in a docs folder.)
+            <p></p></li>
+	  <p><li>Include .gitignore?: Stick with the default -> Yes (recommended)
+	    <li>
+	      <p>Advanced settings:
+        In the "Description" box you may put whatever you like, or leave it empty.
+		Leave the Forking option at the default.
+		So the only required action you need to take here
+		is to <font color="red">set Language to Java</font>.
+
+        <p></p>
+    </li>
+</ul>
+<p>
+    Once you have successfully created the repository, you will be directed to the page
+    bitbucket.org/yourUserName/yourRepoName - this is your repository's home page.
+</p>
+
+<h3>
+    3) Add partner and grader
+</h3>
+
+<p>
+  Off your repository's home page, go the Repository Settings,
+  then navigate to User and group access.
+  In the "Users" field, add your project partner ("write" access) and your grader
+  ("read" access). 
+
+</p>
+
+<h3>
+    4) Clone the repository
+</h3>
+
+<p>
+  On the repo home page is a "Clone" button. Clicking on it will give
+  a Git command line needed for cloning the repository to your computer.
+Run this Git command on your computer to make a local clone:
+
+</p>
+
+<p><tt>
+    $ git clone https://sesh@bitbucket.org/sesh/cs213test.git<br>
+    Cloning into 'cs213test'...<br/>
+    Password for 'https://sesh@bitbucket.org':<br/>
+    warning: You appear to have cloned an empty repository.<br/>
+    Checking connectivity... done.<br/>
+</tt>
+
+</p>
+
+<p>
+    Now that you have a local clone of the repository, you can do some stuff.
+</p>
+
+
+
+<h3>
+    5) Check Git status
+</h3>
+
+<p>
+    It's a good habit that check the git status for every command especially before you commit something.<br/>
+    After you make a new file, you can check the status of your repository.
+</p>
+
+<tt>
+    $ cd cs213test<br>
+    $ cat &gt; README<br>
+    this is just a simple file to read<br>
+    Ctrl-C<br>
+    $ git status<br/>
+    On branch master<br/>
+    Initial commit<br/>
+    Untracked files:<br/>
+    (use "git add <file>..." to include in what will be committed)<br/>
+
+    <font color="red">README</font><br/>
+</tt>
+
+<p>
+    For those of you who aren't super familiar with unix, that business
+    with a "cat &gt;" just wrote text into a new file. (Ctrl-C terminates the input file.)
+</p>
+
+<h3>6) Add your code</h3>
+
+<p>
+    This command adds files to the index, so that Git can track your file status.<br/>
+    Git doesn't include things that you don't tell it about. If you create a file without adding it to the
+    repository, the repository will never have a copy of that file.
+</p>
+
+<tt>
+    $ git add README<br/>
+    $ git status<br/>
+    On branch master<br/>
+
+    Initial commit<br/>
+
+    Changes to be committed:<br/>
+    (use "git rm --cached &lt;file&gt;..." to unstage)<br/>
+
+    <font color="green">new file:   README</font><br/>
+
+</tt>
+
+<p>
+    Now the README file is added (but not yet committed).
+</p>
+
+<h3>
+    7) Commit a change
+</h3>
+
+<p>
+    The commit operation is the basic "save a version" operation that <tt>git</tt>
+    is built around. Every time you successfully commit, you are saving a state of your code.
+    Any time in the future you will be able to recover this particular state of your code.
+</p>
+
+<p>
+    Since it is often difficult to know exactly what causes things to break, it's a good idea to commit whenever you
+    make some kind of atomic change. If you do three things in one session, when possible you should commit each of them
+    separately.
+</p>
+
+<tt>
+    $ git commit -m "added a readme"<br>
+    [master (root-commit) b47bd92] added a readme<br/>
+    1 file changed, 0 insertions(+), 0 deletions(-)<br/>
+    create mode 100644 README<br/>
+</tt>
+
+<p>
+    Then you can check the repository status.
+</p>
+
+<tt>
+    $ git status<br/>
+    On branch master<br/>
+    Your branch is based on 'origin/master', but the upstream is gone.<br/>
+    (use "git branch --unset-upstream" to fixup)<br/>
+    nothing to commit, working directory clean<br/>
+</tt>
+
+<p>
+    Now my local version of the repository has this new file.
+</p>
+
+<h3>
+    8) Push back to bitbucket.org
+</h3>
+
+<p><font color="red">IMPORTANT: THE COMMIT OPERATION DOES NOT DO ANYTHING ON THE NETWORK</font></p>
+
+<p>
+    It's important to realize that a commit operation does *not* do anything on the network. At the moment,
+    bitbucket.org has no idea that I've done anything locally. To move anything back to bitbucket.org, I need to push it to upstream.<br/>
+
+<p>    The command for this is simple:
+<pre>
+    git push [remote-name] [branch-name]
+</pre>
+
+  <p>If you want to push your master branch to your origin server (cloning generally sets up both of those names for you automatically),
+    then you can run this to push any commits you’ve done back up to the server:
+</p>
+
+<tt>
+    $ git push origin master<br/>
+    Password for 'https://sesh@bitbucket.org':<br/>
+    Counting objects: 3, done.<br/>
+    Writing objects: 100% (3/3), 207 bytes | 0 bytes/s, done.<br/>
+    Total 3 (delta 0), reused 0 (delta 0)<br/>
+    To https://sesh@bitbucket.org/sesh/cs213test.git<br/>
+    * [new branch]      master -> master<br/>
+    Branch master set up to track remote branch master from origin.<br/>
+    Password for 'https://sesh@bitbucket.org':<br/>
+    Branch master set up to track remote branch master from origin.<br/>
+    Everything up-to-date<br/>
+</tt>
+
+<p>
+<ul>
+    <tt>origin</tt> is the default remote server name, you can check the remote 
+server by this command: 
+<pre>
+    git remote -v
+</pre>
+<tt>master</tt> is the branch name.
+</ul>
+</p>
+
+<tt>
+    git remote -v<br/>
+    origin	https://sesh@bitbucket.org/sesh/cs213test.git (fetch)<br/>
+    origin	https://sesh@bitbucket.org/sesh/cs213test.git (push)<br/>
+</tt>
+
+<p>
+    Since I didn't say where I was pushing, git pushes back to the repository from which I cloned earlier.
+    That is, it pushes to my <tt>cs213test</tt> repository on bitbucket.org.
+</p>
+
+<p>
+    I can now go back to the repository's home page and check out the new addition.
+</p>
+
+<h3>
+    9) Pulling from bitbucket.org
+</h3>
+
+<p>
+    When we pushed to bitbucket.org in the last step, that puts the new source code on the website but
+    not on the hard disk of our collaborators. Since hacking into their computers and adding the files
+    yourself is generally frowned upon, we depend on them running the pull command.
+</p>
+
+<p>
+    When a collaborator clones, he or she will get the most up-to-date version of the repository. But
+    cloning each time to get the latest code is silly. Git provides the pull command.
+</p>
+
+<tt>
+    $ git pull <br/>
+    Password for 'https://sesh@bitbucket.org':<br/>
+    remote: Counting objects: 2, done.<br/>
+    remote: Compressing objects: 100% (2/2), done.<br/>
+    remote: Total 2 (delta 0), reused 0 (delta 0)<br/>
+    Unpacking objects: 100% (2/2), done.<br/>
+    From https://bitbucket.org/sesh/cs213test<br/>
+    b47bd92..177ca30  master     -> origin/master<br/>
+    Updating b47bd92..177ca30<br/>
+    Fast-forward<br/>
+    updates | 0<br/>
+    1 file changed, 0 insertions(+), 0 deletions(-)<br/>
+    create mode 100644 updates<br/>
+</tt>
+
+<p>
+    As with push, if you don't specify a place to pull from, git will use the repository you cloned.
+</p>
+
+
+<h3>
+    10) Push/pull/merge
+</h3>
+
+<p>
+    You cannot push to bitbucket.org if you are out of sync. The way this will mostly happen is if another group member
+    has pushed and you have yet to pull. You will see something like the following.
+</p>
+
+<tt>
+    $ git push origin master<br/>
+    Password for 'https://sesh@bitbucket.org':<br/>
+    To https://sesh@bitbucket.org/sesh/cs213test.git<br/>
+    ! [rejected]        master -> master (fetch first)<br/>
+    error: failed to push some refs to 'https://sesh@bitbucket.org/sesh/cs213test.git'<br/>
+    hint: Updates were rejected because the remote contains work that you do<br/>
+    hint: not have locally. This is usually caused by another repository pushing<br/>
+    hint: to the same ref. You may want to first integrate the remote changes<br/>
+    hint: (e.g., 'git pull ...') before pushing again.<br/>
+    hint: See the 'Note about fast-forwards' in 'git push --help' for details.<br/>
+</tt>
+
+<p>
+    Don't take the advice about "push -f" unless you definitely know what you're doing.
+</p>
+
+<p>
+    The best thing to do here is to pull and update, as in steps (8) and (9). It will look something like the following.<br/>
+
+<p>    You should pull often. Sometimes you need to work on a new feature that is going to take a lot of time to finish. Then, when you’re finally done, you pull and merge and see that there are so many conflicts there.<br/>
+
+<p>    The solution to that is Continuous Integration. In other words, constantly merging your changes with the changes made by your collaborators. If you include this habit in your routine, you’ll find conflicts earlier and they will be a lot easier to fix.
+
+</p>
+
+<tt>
+    $ git pull<br/>
+    Password for 'https://sesh@bitbucket.org':<br/>
+    remote: Counting objects: 3, done.<br/>
+    remote: Compressing objects: 100% (2/2), done.<br/>
+    remote: Total 3 (delta 0), reused 0 (delta 0)<br/>
+    Unpacking objects: 100% (3/3), done.<br/>
+    From https://bitbucket.org/sesh/cs213test<br/>
+    0719575..ae835e1  master     -> origin/master<br/>
+    Auto-merging update<br/>
+    CONFLICT (content): Merge conflict in README<br/>
+    Automatic merge failed; fix conflicts and then commit the result.<br/>
+</tt>
+
+<p>
+    In this situation git will automatically merge conflict files, if it goes well, you need to do nothing.<br/>
+    Sometimes Git is not smart enough to merge changes. In that case you will have...
+</p>
+
+<h3>
+    11) Merging conflicts
+</h3>
+
+<p>
+    Sooner or later, two people in your group are going to edit the same file in such a way that Git can't figure
+    out how to merge both changes in at the same time. This is called a merge conflict.
+</p>
+
+<p>
+    Git will tell you about merge conflicts when you attempt to merge.
+</p>
+
+<tt>
+    $ git status<br/>
+    On branch master<br/>
+    Your branch and 'origin/master' have diverged,<br/>
+    and have 1 and 1 different commit each, respectively.<br/>
+    (use "git pull" to merge the remote branch into yours)<br/>
+    You have unmerged paths.<br/>
+    (fix conflicts and run "git commit")<br/>
+    <br/>
+    <string style="color:red">Unmerged paths:</string><br/>
+    (use "git add <file>..." to mark resolution)<br/>
+    <br/>
+    <string style="color:red">both modified:   README</string><br/>
+
+    no changes added to commit (use "git add" and/or "git commit -a")<br/>
+</tt>
+
+<p>
+    In this case, two collaborators edited the same line in README in two different ways. The README file in the working
+    copy has been modified to make it easy to spot the conflict.
+</p>
+
+<tt>
+    this is just a simple file to read<br/>
+    &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br/>
+    I added some more stuff. you probably should pull.<br/>
+    =======<br/>
+    I added some more stuff. you definitely should pull.<br/>
+    &gt;&gt;&gt;&gt;&gt;&gt;&gt; ae835e1c79d133a3bde07321495773d5c1e64bc7<br/>
+</tt>
+
+<p>
+    The line in question, discussing stuff that was added and how certain it is that you should pull, now has two
+    versions. The "HEAD" version (the version I created) is between the "&lt;&lt;&lt;&lt;&lt;&lt;&lt; local" and
+    "=======". The "other" verison (the version my collaborator created) is between the "=======" and "&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+    other".
+</p>
+
+<p>
+    I should now edit this file to fix the conflict by hand. In this case I'll do the thing that will create the least
+    amount of friction in my group, and go with my collaborator's version.
+</p>
+
+<p>
+    The file now has no conflict.
+</p>
+
+<tt>
+    update from first user, this may have some conflicts<br/>
+    I added some more stuff. you definitely should pull.
+</tt>
+
+<p>
+    At this point, you might feel like the right thing to do is to commit.
+</p>
+
+<tt>
+    $ git add .<br/>
+    $ git commit -m "accepted collaborator's change"<br>
+    [master 50d740d] accepted collaborator's change
+</tt>
+
+<p>
+The '<tt>.</tt>' after <tt>add</tt> means add all updates in the current path. But if you only want
+to add README, then you can just say:
+<pre>
+    git add README
+</pre>
+</p>
+
+<h3>
+    12) Check git logs
+</h3>
+
+<p>
+    The git log can help you to show each commit. This command give you the power to go back into your project and find any information that you could possibly need.<br/>
+
+</p>
+
+<tt>
+    $ git log<br/>
+    commit 50d740dc59e52180ef935d6b093b5420f9384b82<br/>
+    Merge: d11e361 ae835e1<br/>
+    Author: sesh <br/>
+    Date:   Wed Feb 24 11:16:58 2021 -0500<br/>
+    <br/>
+    accepted collaborator's change<br/>
+    <br/>
+    commit d11e361c7fc5c8712c1af0a97e408556c2043d93<br/>
+    Author: sesh <br/>
+    Date:   Wed Feb 24 11:05:11 2021 -0500<br/>
+    <br/>
+    submit by first user<br/>
+
+    commit ae835e1c79d133a3bde07321495773d5c1e64bc7<br/>
+    Author: sesh <br/>
+    Date:   Wed Feb 24 11:04:05 2021 -0500<br/>
+    <br/>
+    update from second user<br/>
+</tt>
+
+<p>
+    You can display your logs in one line by: git log --oneline
+</p>
+
+<tt>
+    git log --oneline<br/>
+    50d740d accepted collaborator's change<br/>
+    d11e361 submit by first user<br/>
+    ae835e1 update from second user<br/>
+    0719575 update from second user<br/>
+    ccad4fd delete<br/>
+    06a6854 updates changes<br/>
+    71e69af modify the updates by the first user<br/>
+    f38a488 add some updates from another user<br/>
+    177ca30 add updates file from another user<br/>
+    b47bd92 added a readme<br/>
+</tt>
+
+<p>
+    The --graph option draws an ASCII graph representing the branch structure of the commit history. <br/>
+    This is commonly used in conjunction with the --oneline and --decorate commands to make it easier to see which commit belongs to which branch.
+</p>
+
+<tt>
+    $ git log --oneline --graph --decorate<br/>
+    *   50d740d (HEAD -> master) accepted collaborator's change<br/>
+    |\<br/>
+    | * ae835e1 (origin/master) update from second user<br/>
+    * | d11e361 submit by first user<br/>
+    |/<br/>
+    * 0719575 update from second user<br/>
+    * ccad4fd delete<br/>
+    *   06a6854 updates changes<br/>
+    |\<br/>
+    | * 71e69af modify the updates by the first user<br/>
+    * | f38a488 add some updates from another user<br/>
+    |/<br/>
+    * 177ca30 add updates file from another user<br/>
+    * b47bd92 added a readme<br/>
+</tt>
+<h3>
+    13) Handing in your project
+</h3>
+
+<p>
+    There are two ways to hand in your project. One is to just make sure that a clone of your project works. You can
+    test this by running the clone command line listed on the repository's home page in an empty directory, and making
+    sure the project that is created works.
+</p>
+
+<p>
+    Another way is to use a tag. You can tag a particular state of the repository, *AFTER COMMITTING IT*, by using the
+    tag command. To specify the finished version of the project, use the "final" tag.
+</p>
+
+<tt>
+    $ git tag final
+</tt>
+
+<p>
+    If you've already done this, but want to move the final tag to a different commit, add the -f flag.
+</p>
+<tt>
+    $ git tag -f final
+</tt>
+
+<p>
+    Like the commit command, the tag command does nothing on the network. You still have to tell bitbucket.org about the
+    new tag by pushing the repository.
+</p>
+
+<tt>
+    $ git push --tags<br/>
+    Password for 'https://sesh@bitbucket.org':<br/>
+    Total 0 (delta 0), reused 0 (delta 0)<br/>
+    To https://sesh@bitbucket.org/sesh/cs213test.git<br/>
+    * [new tag]         final -> final<br/>
+</tt>
+
+<p>
+    To test the tagged version of your project, you can clone your project first and then checkout the specific tag version.
+</p>
+
+<tt>
+    $ git checkout tags/final<br/>
+    HEAD is now at 50d740d... accepted collaborator's change
+</tt>
+<br/>
+<br/>
+</body>
+</html>
