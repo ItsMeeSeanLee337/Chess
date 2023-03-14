@@ -32,13 +32,37 @@ public class Bishop extends Piece{
         }
 
         Piece destPiece = board.getPiece(toRank, toFile); // check if the destination square is empty
-        if (getColor().equals("White")) // White pawn
+        if (destPiece != null && destPiece.getColor().equals(getColor())) // destination square contains a piece of the same color
         {
-                
+            return false;
         }
-        else // Black pawn
-        {
 
+        int deltaRank = toRank - getRank();
+        int deltaFile = toFile - getFile();
+
+        if (Math.abs(deltaRank) != Math.abs(deltaFile)) // the move is not diagonal
+        {
+            return false;
         }
+
+        int rankDir = deltaRank > 0 ? 1 : -1;
+        int fileDir = deltaFile > 0 ? 1 : -1;
+
+        int curRank = getRank() + rankDir;
+        int curFile = getFile() + fileDir;
+
+        while (curRank != toRank && curFile != toFile) // check all squares between the starting and ending squares
+        {
+            if (board.getPiece(curRank, curFile) != null) // there is a piece on the way
+            {
+                return false;
+            }
+
+            curRank += rankDir;
+            curFile += fileDir;
+        }
+
+        return true;
     }
+
 }
