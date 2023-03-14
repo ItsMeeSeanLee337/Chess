@@ -41,10 +41,11 @@ public class Game {
         }
     }
 
-    public static boolean draw(String input, Boolean turn, Scanner scanner) // Must test draw functionality
+    public static boolean draw(String input, Boolean turn, Scanner scanner, Board chessBoard) // Draw functionality works sometimes, needs testing for all cases
     {
         if (input.contains("draw?")) // In the case that a player offers a draw:
         {
+            chessBoard.drawBoard();
             if (turn == true)
             {
                 System.out.print("Black's move: ");
@@ -61,7 +62,6 @@ public class Game {
             else // Otherwise the game should continue as normal
             {
                 return false;
-                // TODO: Implement functionality for when opponent does not accept draw
             }
         }
         else
@@ -94,7 +94,7 @@ public class Game {
             }
             // TODO: Check if the move made is an illegal move, react appropriately
             String input = scanner.nextLine(); // read the user input as a single string, 
-            if (draw(input, turn, scanner)) // In the case that a player offers a draw:
+            if (draw(input, turn, scanner, chessBoard)) // In the case that a player offers a draw:
             {
                 return; // End the game if the input is "draw", otherwise continue the game as normal
             }
