@@ -121,7 +121,7 @@ public class Chess {
                 int fromRow = Character.getNumericValue(input.charAt(1)); // Gets the fromRow integer
                 char toCol = input.charAt(3); // Gets the toCol character
                 int toRow =  Character.getNumericValue(input.charAt(4)); // Gets the toRow integer
-                turn = !turn; // Flip the turn
+                turn = !turn; // Flip the turn  
             }
         }
     }
