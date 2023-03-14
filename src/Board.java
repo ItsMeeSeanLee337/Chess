@@ -1,12 +1,15 @@
-public class Board {
+public class Board 
+{
     private Piece[][] board;
 
-    public Board() {
+    public Board() 
+    {
         board = new Piece[8][8];
         initializeBoard();
     }
 
-    public void initializeBoard() {
+    public void initializeBoard() 
+    {
         // Create and place white pieces
         board[0][0] = new Rook("White", 0, 0);
         board[0][1] = new Knight("White", 0, 1);
@@ -16,7 +19,8 @@ public class Board {
         board[0][5] = new Bishop("White", 0, 5);
         board[0][6] = new Knight("White", 0, 6);
         board[0][7] = new Rook("White", 0, 7);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) 
+        {
             board[1][i] = new Pawn("White", 1, i);
         }
 
@@ -29,7 +33,8 @@ public class Board {
         board[7][5] = new Bishop("Black", 7, 5);
         board[7][6] = new Knight("Black", 7, 6);
         board[7][7] = new Rook("Black", 7, 7);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) 
+        {
             board[6][i] = new Pawn("Black", 6, i);
         }
     }
@@ -38,19 +43,26 @@ public class Board {
     {
         return board[rank][file];
     }
-    public void drawBoard() {
+    public void drawBoard() // TODO: drawBoard() does not draw the board in the way shown in the example, easy fix, current iteration is for readablity
+    {
         System.out.print(" ");
-        for (char file = 'a'; file <= 'h'; file++) {
+        for (char file = 'a'; file <= 'h'; file++) 
+        {
             System.out.print("  " + file + " ");
         }
         System.out.println();
         
-        for (int rank = 8; rank >= 1; rank--) {
+        for (int rank = 8; rank >= 1; rank--) 
+        {
             System.out.print(rank);
-            for (char file = 'a'; file <= 'h'; file++) {
-                if ((rank + file) % 2 == 0) {
+            for (char file = 'a'; file <= 'h'; file++) 
+            {
+                if (((rank + file) % 2 == 0) && (board[rank - 1][file - 'a'] == null))
+                {
                     System.out.print(" ## ");
-                } else {
+                } 
+                else 
+                {
                     Piece piece = board[rank - 1][file - 'a'];
                     String symbol = piece == null ? "  " : piece.getSymbol();
                     System.out.print(" " + symbol + " ");
@@ -60,13 +72,15 @@ public class Board {
         }
         
         System.out.print(" ");
-        for (char file = 'a'; file <= 'h'; file++) {
+        for (char file = 'a'; file <= 'h'; file++) 
+        {
             System.out.print("  " + file + " ");
         }
         System.out.println();
     }
 
-    public void makeMove(String move) {
+    public void makeMove(String move) 
+    {
         // Parse the move string and update the board
         int fromFile = move.charAt(0) - 'a';
         int fromRank = 8 - (move.charAt(1) - '0');

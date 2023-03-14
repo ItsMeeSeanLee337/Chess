@@ -63,6 +63,11 @@ public class Pawn extends Piece {
         hasMoved = true;
     }
 
+    public void setFile(int toFile) {
+        super.setFile(toFile);
+        hasMoved = true;
+    }
+
     public boolean hasMoved() {
         return hasMoved;
     }
