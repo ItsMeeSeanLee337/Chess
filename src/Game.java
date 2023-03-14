@@ -77,7 +77,7 @@ public class Game {
 
     public static void main(String[] args) {
         Board chessBoard = new Board();
-        chessBoard.displayBoard();
+        chessBoard.drawBoard();
         Scanner scanner = new Scanner(System.in);
         // White = true, Black = false
         boolean turn = true;
@@ -104,7 +104,7 @@ public class Game {
             }
             else // In the case that the input does not contain "draw?" or "resign", we obtain the moves to process
             {
-                
+
                 char fromCol = input.charAt(0); // Gets the fromCol character
                 int fromRow = Character.getNumericValue(input.charAt(1)); // Gets the fromRow integer
                 char toCol = input.charAt(3); // Gets the toCol character
