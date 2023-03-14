@@ -95,6 +95,14 @@ public class Chess {
                 {
                     return;
                 }
+                else // Otherwise the game should continue as normal
+                {
+                    char fromCol = input.charAt(0); // Gets the fromCol character
+                    int fromRow = Character.getNumericValue(input.charAt(1)); // Gets the fromRow integer
+                    char toCol = input.charAt(3); // Gets the toCol character
+                    int toRow =  Character.getNumericValue(input.charAt(4)); // Gets the toRow integer
+                    turn = !turn; // Flip the turn
+                }
             }
             else if (input.contains("resign")) // In the case that a player submits resign as their move, the other player automatically wins
             {
