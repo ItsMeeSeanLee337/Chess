@@ -1,29 +1,6 @@
 import java.util.Scanner;
 
 public class Game {
-
-    
-    
-    public static void movePawn() // TODO: Check if pawn's move is valid, move accordingly
-    {
-
-    }
-    public static void moveRook() // TODO: Check if rook's move is valid, move accordingly
-    {
-
-    }
-    public static void moveBishop() // TODO: Check if bishop's move is valid, move accordingly
-    {
-
-    }
-    public static void moveQueen() // TODO: Check if queen's move is valid, move accordingly
-    {
-
-    }
-    public static void moveKing() // TODO: Check if king's move is valid, move accordingly
-    {
-
-    }
     public static void moveKnight() // TODO: Check if knight's move is valid, move accordingly
     {
 
@@ -44,16 +21,63 @@ public class Game {
     {
 
     }
-    public static void resign() // TODO: resign the game for valid input by user
+    public static boolean resign(String input, Boolean turn) // TODO: resign the game for valid input by user
     {
-
+        if (input.contains("resign")) // In the case that a player submits resign as their move, the other player automatically wins
+        {
+            if (turn == true)
+            {
+                System.out.print("Black wins");
+            }
+            else
+            {
+                System.out.print("White wins");
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+
+    public static boolean draw(String input, Boolean turn, Scanner scanner) // Must test draw functionality
+    {
+        if (input.contains("draw?")) // In the case that a player offers a draw:
+        {
+            if (turn == true)
+            {
+                System.out.print("Black's move: ");
+            }
+            else
+            {
+                System.out.print("White's move: ");
+            }
+            input = scanner.nextLine(); // If the other player sumbits "draw" as their move, the game ends
+            if (input.contains("draw"))
+            {
+                return true;
+            }
+            else // Otherwise the game should continue as normal
+            {
+                return false;
+                // TODO: Implement functionality for when opponent does not accept draw
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static void checkMate() // TODO: Validate if checkmate has been achieved, react appropriately
     {
 
     } 
+
     public static void main(String[] args) {
-        Board.displayBoard();
+        Board chessBoard = new Board();
+        chessBoard.displayBoard();
         Scanner scanner = new Scanner(System.in);
         // White = true, Black = false
         boolean turn = true;
@@ -69,33 +93,18 @@ public class Game {
                 System.out.print("Black's move: ");
             }
             // TODO: Check if the move made is an illegal move, react appropriately
-            String input = scanner.nextLine(); // read the user input as a single string, TODO: If the input is "Resign", have the opposite player win
-            if (input.contains("draw?")) // In the case that a player offers a draw:
+            String input = scanner.nextLine(); // read the user input as a single string, 
+            if (draw(input, turn, scanner)) // In the case that a player offers a draw:
             {
-                input = scanner.nextLine(); // If the other player sumbits "draw" as their move, the game ends
-                if (input.contains("draw"))
-                {
-                    return;
-                }
-                else // Otherwise the game should continue as normal
-                {
-                    // TODO: Implement functionality for when opponent does not accept draw
-                }
+                return; // End the game if the input is "draw", otherwise continue the game as normal
             }
-            else if (input.contains("resign")) // In the case that a player submits resign as their move, the other player automatically wins
+            else if (resign(input, turn)) // In the case that a player submits resign as their move, the other player automatically wins
             {
-                if (turn == true)
-                {
-                    System.out.print("Black wins");
-                }
-                else
-                {
-                    System.out.print("White wins");
-                }
-                return;
+                return; // Ends the game if a player resigns
             }
             else // In the case that the input does not contain "draw?" or "resign", we obtain the moves to process
             {
+                
                 char fromCol = input.charAt(0); // Gets the fromCol character
                 int fromRow = Character.getNumericValue(input.charAt(1)); // Gets the fromRow integer
                 char toCol = input.charAt(3); // Gets the toCol character
