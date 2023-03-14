@@ -65,6 +65,10 @@ public class Chess {
     {
 
     }
+    public static void resign() // TODO: resign the game for valid input by user
+    {
+
+    }
     public static void checkMate() // TODO: Validate if checkmate has been achieved, react appropriately
     public static void main(String[] args) {
         displayBoard(board);
@@ -84,13 +88,27 @@ public class Chess {
             }
             // TODO: Check if the move made is an illegal move, react appropriately
             String input = scanner.nextLine(); // read the user input as a single string, TODO: If the input is "Resign", have the opposite player win
-            String[] parts = input.split(" "); // split the input string into two parts using space as the delimiter
-            char fromCol = input.charAt(0); // Gets the fromCol character
-            int fromRow = Character.getNumericValue(input.charAt(1)); // Gets the fromRow integer
-            char toCol = input.charAt(3); // Gets the toCol character
-            int toRow =  Character.getNumericValue(input.charAt(4)); // Gets the toRow integer
-            // TODO: Must implement functionality for when the input is followed by "draw?" 
-            turn = !turn;
+            if (input.contains("draw?")) // In the case that a player offers a draw:
+            {
+                input = scanner.nextLine(); // If the other player sumbits "draw" as their move, the game ends
+                if (input.contains("draw"))
+                {
+                    return;
+                }
+            }
+            else if (input.contains("resign")) // In the case that a player submits resign as their move, the other player automatically wins
+            {
+                System.out.print("Black wins");
+                return;
+            }
+            else // In the case that the input does not contain "draw?" or "resign", we obtain the moves to process
+            {
+                char fromCol = input.charAt(0); // Gets the fromCol character
+                int fromRow = Character.getNumericValue(input.charAt(1)); // Gets the fromRow integer
+                char toCol = input.charAt(3); // Gets the toCol character
+                int toRow =  Character.getNumericValue(input.charAt(4)); // Gets the toRow integer
+                turn = !turn; // Flip the turn
+            }
         }
     }
 }
