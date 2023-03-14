@@ -32,13 +32,20 @@ public class Knight extends Piece{
         }
 
         Piece destPiece = board.getPiece(toRank, toFile); // check if the destination square is empty
-        if (getColor().equals("White")) // White pawn
-        {
-                
-        }
-        else // Black pawn
-        {
+        int rankDiff = Math.abs(toRank - getRank());
+        int fileDiff = Math.abs(toFile - getFile());
 
+        // check if the move is valid for a knight
+        if ((rankDiff == 2 && fileDiff == 1) || (rankDiff == 1 && fileDiff == 2))
+        {
+            // check if the destination square is occupied by a piece of the same color
+            if (destPiece != null && destPiece.getColor().equals(getColor()))
+            {
+                return false;
+            }
+            return true;
         }
+        return false;
     }
+
 }
