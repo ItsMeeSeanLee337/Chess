@@ -2,7 +2,7 @@ public class Knight extends Piece{
     private boolean hasMoved;
     
     public Knight(String color, int rank, int file) {
-        super(color, color == "White" ? "wN" : "bN", rank, file);
+        super(color, color.equals("White") ? "wN" : "bN", rank, file);
         this.hasMoved = false;
     }
     
@@ -25,6 +25,20 @@ public class Knight extends Piece{
 
     public boolean isValidMove(int toRank, int toFile, Board board) 
     {
+        // check if the move is within the board
+        if (toRank < 0 || toRank > 7 || toFile < 0 || toFile > 7) 
+        {
+            return false;
+        }
 
+        Piece destPiece = board.getPiece(toRank, toFile); // check if the destination square is empty
+        if (getColor().equals("White")) // White pawn
+        {
+                
+        }
+        else // Black pawn
+        {
+
+        }
     }
 }

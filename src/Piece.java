@@ -1,9 +1,9 @@
 public abstract class Piece 
 {  
-    private String color;
-    private String symbol;
-    private int rank;
-    private int file;
+    public String color;
+    public String symbol;
+    public int rank;
+    public int file;
     
     public Piece(String color, String symbol, int rank, int file) 
     {

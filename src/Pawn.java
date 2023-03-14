@@ -3,7 +3,7 @@ public class Pawn extends Piece {
     
     public Pawn(String color, int rank, int file) 
     {
-        super(color, color == "White" ? "wP" : "bP", rank, file);
+        super(color, color.equals("White") ? "wP" : "bP", rank, file);
         this.hasMoved = false;
     }
 
@@ -33,7 +33,7 @@ public class Pawn extends Piece {
         }
 
         Piece destPiece = board.getPiece(toRank, toFile); // check if the destination square is empty
-        if (getColor() == "White") // White pawn
+        if (getColor().equals("White")) // White pawn
         {
             if (toRank == getRank() - 1) 
             {
