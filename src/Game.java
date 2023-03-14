@@ -1,29 +1,8 @@
 import java.util.Scanner;
 
-public class Chess {
-    private static final String[][] board = {
-        {"bR", "bN", "bB", "bQ", "bK", "bB", "bN", "BR"},
-        {"bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP"},
-        {"  ", "##", "  ", "##", "  ", "##", "  ", "##"},
-        {"##", "  ", "##", "  ", "##", "  ", "##", "  "},
-        {"  ", "##", "  ", "##", "  ", "##", "  ", "##"},
-        {"##", "  ", "##", "  ", "##", "  ", "##", "  "},
-        {"wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP"},
-        {"wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"}
-    };
+public class Game {
 
-    public static void displayBoard(String[][] board) 
-    {
-        // TODO: When displaying the board and a piece has moved out of position revealing a black square underneath, draw the board appropriately
-        // has nothing to do with the displayBoard method, something to keep in mind when writing the other move methods
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println(8 - i);
-        }
-        System.out.println(" a  b  c  d  e  f  g  h");
-    }
+    
     
     public static void movePawn() // TODO: Check if pawn's move is valid, move accordingly
     {
@@ -74,7 +53,7 @@ public class Chess {
 
     } 
     public static void main(String[] args) {
-        displayBoard(board);
+        Board.displayBoard();
         Scanner scanner = new Scanner(System.in);
         // White = true, Black = false
         boolean turn = true;
