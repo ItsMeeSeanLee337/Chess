@@ -113,10 +113,23 @@ public class Board
         return false;
     }
 
-    public boolean isSquareAttacked(int rank, int file, String color)
-    {
-        // TODO: Check if a square on the board is being attacked
+    public boolean isSquareAttacked(int rank, int file, String color) {
+        // Check if any of the opponent's pieces can attack the given square
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Piece piece = board[i][j];
+                if (piece != null && !piece.getColor().equals(color)) {
+                    if (piece.isValidMove(file, rank, board)) {
+                        return true;
+                    }
+                }
+            }
+        }
+    
+        // No pieces can attack the given square
+        return false;
     }
+    
     
     public boolean isValidCastlingMove(String move, String color) {
         // Parse the move string and get the king's starting and ending positions
