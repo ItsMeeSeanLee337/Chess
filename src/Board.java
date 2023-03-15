@@ -38,11 +38,7 @@ public class Board
             board[6][i] = new Pawn("Black", 6, i);
         }
     }
-
-    public Piece getPiece(int rank, int file)
-    {
-        return board[rank][file];
-    }
+    
     public void drawBoard() // TODO: drawBoard() does not draw the board in the way shown in the example, easy fix, current iteration is for readablity
     {
         System.out.print(" ");
@@ -79,6 +75,98 @@ public class Board
         System.out.println();
     }
 
+    public boolean isCheck(String color) 
+    {
+        int kingRank = -1;
+        int kingFile = -1;
+    
+        // Find the location of the king of the given color
+        for (int i = 0; i < 8; i++) 
+        {
+            for (int j = 0; j < 8; j++) 
+            {
+                Piece piece = board[i][j];
+                if (piece instanceof King && piece.getColor().equals(color)) 
+                {
+                    kingRank = i;
+                    kingFile = j;
+                }
+            }
+        }
+    
+        // Check if any of the opponent's pieces can attack the king
+        for (int i = 0; i < 8; i++) 
+        {
+            for (int j = 0; j < 8; j++) 
+            {
+                Piece piece = board[i][j];
+                if (piece != null && !piece.getColor().equals(color)) 
+                {
+                    if (piece.isValidMove(kingFile, kingRank, board)) 
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    
+        return false;
+    }
+
+    public boolean isSquareAttacked(int rank, int file, String color)
+    {
+        // TODO: Check if a square on the board is being attacked
+    }
+    
+    public boolean isValidCastlingMove(String move, String color) {
+        // Parse the move string and get the king's starting and ending positions
+        int fromFile = move.charAt(0) - 'a';
+        int fromRank = 8 - (move.charAt(1) - '0');
+        int toFile = move.charAt(3) - 'a';
+        int toRank = 8 - (move.charAt(4) - '0');
+        
+        // Check that the move is a castling move
+        if (Math.abs(fromFile - toFile) != 2 || fromRank != toRank) {
+            return false;
+        }
+        
+        // Check that the king and rook have not moved
+        Piece king = board[fromRank][fromFile];
+        Piece rook = board[fromRank][toFile == 6 ? 7 : 0];
+        if (king == null || rook == null || king.hasMoved() || rook.hasMoved()) {
+            return false;
+        }
+        
+        // Check that there are no pieces between the king and rook
+        int rookFile = toFile == 6 ? 7 : 0;
+        int direction = toFile > fromFile ? 1 : -1;
+        for (int i = fromFile + direction; i != rookFile; i += direction) {
+            if (board[fromRank][i] != null) {
+                return false;
+            }
+        }
+        
+        // Check that the king is not in check
+        if (isCheck(color)) {
+            return false;
+        }
+        
+        // Check that the squares the king passes over are not attacked
+        int passFile = fromFile + direction;
+        int[] passRanks = {fromRank, fromRank, fromRank};
+        int[] attackRanks = {fromRank - 1, fromRank, fromRank + 1};
+        for (int i = 0; i < 3; i++) {
+            if (isSquareAttacked(passFile, passRanks[i], color)) {
+                return false;
+            }
+            if (board[attackRanks[i]][passFile] != null) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
     public void makeMove(String move) 
     {
         // Parse the move string and update the board
