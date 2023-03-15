@@ -43,4 +43,7 @@ public abstract class Piece
         return file;
     }
     
+    public abstract boolean isValidMove(int toRank, int toFile,  Piece[][] board);
+    
+    public abstract boolean hasMoved();
 }
