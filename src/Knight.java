@@ -6,24 +6,28 @@ public class Knight extends Piece{
         this.hasMoved = false;
     }
     
+    @Override
     public void setRank(int toRank) 
     {
         super.setRank(toRank);
         hasMoved = true;
     }
 
+    @Override
     public void setFile(int toFile) 
     {
         super.setFile(toFile);
         hasMoved = true;
     }
 
+    @Override
     public boolean hasMoved() 
     {
         return hasMoved;
     }
 
-    public boolean isValidMove(int toRank, int toFile, Board board) 
+    @Override
+    public boolean isValidMove(int toRank, int toFile, Piece[][] board) 
     {
         // check if the move is within the board
         if (toRank < 0 || toRank > 7 || toFile < 0 || toFile > 7) 
@@ -31,7 +35,7 @@ public class Knight extends Piece{
             return false;
         }
 
-        Piece destPiece = board.getPiece(toRank, toFile); // check if the destination square is empty
+        Piece destPiece = board[toRank][toFile]; // check if the destination square is empty
         int rankDiff = Math.abs(toRank - getRank());
         int fileDiff = Math.abs(toFile - getFile());
 

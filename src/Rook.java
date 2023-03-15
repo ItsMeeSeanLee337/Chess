@@ -6,24 +6,28 @@ public class Rook extends Piece{
         this.hasMoved = false;
     }
 
+    @Override
     public void setRank(int toRank) 
     {
         super.setRank(toRank);
         hasMoved = true;
     }
 
+    @Override
     public void setFile(int toFile) 
     {
         super.setFile(toFile);
         hasMoved = true;
     }
 
+    @Override
     public boolean hasMoved() 
     {
         return hasMoved;
     }
 
-    public boolean isValidMove(int toRank, int toFile, Board board) 
+    @Override
+    public boolean isValidMove(int toRank, int toFile, Piece[][] board) 
     {
         // check if the move is within the board
         if (toRank < 0 || toRank > 7 || toFile < 0 || toFile > 7) 
@@ -31,7 +35,7 @@ public class Rook extends Piece{
             return false;
         }
 
-        Piece destPiece = board.getPiece(toRank, toFile); // check if the destination square is empty
+        Piece destPiece = board[toRank][toFile]; // check if the destination square is empty
 
         // check if the rook is moving vertically
         if (toFile == getFile()) 
@@ -41,8 +45,8 @@ public class Rook extends Piece{
             int end = Math.max(getRank(), toRank);
             for (int i = start + 1; i < end; i++) 
             {
-                Piece p = board.getPiece(i, getFile());
-                if (p != null) 
+                Piece piece = board[toRank][toFile];
+                if (piece != null) 
                 {
                     return false;
                 }
@@ -61,8 +65,8 @@ public class Rook extends Piece{
             int end = Math.max(getFile(), toFile);
             for (int i = start + 1; i < end; i++) 
             {
-                Piece p = board.getPiece(getRank(), i);
-                if (p != null) 
+                Piece piece = board[toRank][toFile];
+                if (piece != null) 
                 {
                     return false;
                 }
