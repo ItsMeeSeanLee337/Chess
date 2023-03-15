@@ -31,14 +31,24 @@ public class King extends Piece{
             return false;
         }
 
-        Piece destPiece = board.getPiece(toRank, toFile); // check if the destination square is empty
-        if (getColor().equals("White")) // White pawn
+        Piece destPiece = board.getPiece(toRank, toFile);
+        
+        // check if the destination square is occupied by a friendly piece
+        if (destPiece != null && destPiece.getColor().equals(getColor())) 
         {
-                
+            return false;
         }
-        else // Black pawn
+        
+        int rankDiff = Math.abs(toRank - getRank());
+        int fileDiff = Math.abs(toFile - getFile());
+        
+        // check if the move is a valid king move, we check for castling in the Board class
+        if ((rankDiff == 1 && fileDiff == 0) || (rankDiff == 0 && fileDiff == 1) || (rankDiff == 1 && fileDiff == 1)) 
         {
-
+            return true;
         }
+        
+        return false;
     }
+
 }

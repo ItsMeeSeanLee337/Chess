@@ -37,16 +37,16 @@ public class Bishop extends Piece{
             return false;
         }
 
-        int deltaRank = toRank - getRank();
-        int deltaFile = toFile - getFile();
+        int rankDiff = Math.abs(toRank - getRank());
+        int fileDiff = Math.abs(toFile - getFile());
 
-        if (Math.abs(deltaRank) != Math.abs(deltaFile)) // the move is not diagonal
+        if (rankDiff != fileDiff) // the move is not diagonal
         {
             return false;
         }
 
-        int rankDir = deltaRank > 0 ? 1 : -1;
-        int fileDir = deltaFile > 0 ? 1 : -1;
+        int rankDir = rankDiff > 0 ? 1 : -1;
+        int fileDir = rankDiff > 0 ? 1 : -1;
 
         int curRank = getRank() + rankDir;
         int curFile = getFile() + fileDir;
