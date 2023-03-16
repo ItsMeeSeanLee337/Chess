@@ -213,7 +213,7 @@ public class Board
         }
         else
         {
-            System.out.print("Illegal move, try again");
+            System.out.println("Illegal move, try again");
             return false;
         }
     }

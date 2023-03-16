@@ -1,7 +1,9 @@
-public class King extends Piece{
+public class King extends Piece
+{
     private boolean hasMoved;
     
-    public King(String color, int rank, int file) {
+    public King(String color, int rank, int file) 
+    {
         super(color, color.equals("White") ? "wK" : "bK", rank, file);
         this.hasMoved = false;
     }
@@ -26,6 +28,7 @@ public class King extends Piece{
         return hasMoved;
     }
 
+    @Override
     public boolean isValidMove(int toRank, int toFile, Piece[][] board) 
     {
         // check if the move is within the board
