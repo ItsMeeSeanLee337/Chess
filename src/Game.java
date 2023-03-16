@@ -107,7 +107,7 @@ public class Game
 
 /*
  * TODO: Bugs list
- * 1. Input f8 a3 gives index out of bounds error
+ * 1. Input f8 a3 gives index out of bounds error, this is for moving a black bishop from it's starting position to a3, need to check if this bug applies to all bishops and/or pieces
  * 2. Moving rooks does not check if there are any pieces in between its starting position and its final position, move should not be allowed if there are pieces between these two positions
  * 3. Need to check if castling works
  * 4. Need to implement empassment
