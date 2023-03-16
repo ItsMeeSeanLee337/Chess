@@ -113,13 +113,18 @@ public class Board
         return false;
     }
 
-    public boolean isSquareAttacked(int rank, int file, String color) {
+    public boolean isSquareAttacked(int rank, int file, String color) 
+    {
         // Check if any of the opponent's pieces can attack the given square
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < 8; i++) 
+        {
+            for (int j = 0; j < 8; j++) 
+            {
                 Piece piece = board[i][j];
-                if (piece != null && !piece.getColor().equals(color)) {
-                    if (piece.isValidMove(file, rank, board)) {
+                if (piece != null && !piece.getColor().equals(color)) 
+                {
+                    if (piece.isValidMove(file, rank, board)) 
+                    {
                         return true;
                     }
                 }
@@ -131,7 +136,8 @@ public class Board
     }
     
     
-    public boolean isValidCastlingMove(String move, String color) {
+    public boolean isValidCastlingMove(String move, String color) 
+    {
         // Parse the move string and get the king's starting and ending positions
         int fromFile = move.charAt(0) - 'a';
         int fromRank = 8 - (move.charAt(1) - '0');
@@ -139,28 +145,33 @@ public class Board
         int toRank = 8 - (move.charAt(4) - '0');
         
         // Check that the move is a castling move
-        if (Math.abs(fromFile - toFile) != 2 || fromRank != toRank) {
+        if (Math.abs(fromFile - toFile) != 2 || fromRank != toRank) 
+        {
             return false;
         }
         
         // Check that the king and rook have not moved
         Piece king = board[fromRank][fromFile];
         Piece rook = board[fromRank][toFile == 6 ? 7 : 0];
-        if (king == null || rook == null || king.hasMoved() || rook.hasMoved()) {
+        if (king == null || rook == null || king.hasMoved() || rook.hasMoved()) 
+        {
             return false;
         }
         
         // Check that there are no pieces between the king and rook
         int rookFile = toFile == 6 ? 7 : 0;
         int direction = toFile > fromFile ? 1 : -1;
-        for (int i = fromFile + direction; i != rookFile; i += direction) {
-            if (board[fromRank][i] != null) {
+        for (int i = fromFile + direction; i != rookFile; i += direction) 
+        {
+            if (board[fromRank][i] != null) 
+            {
                 return false;
             }
         }
         
         // Check that the king is not in check
-        if (isCheck(color)) {
+        if (isCheck(color)) 
+        {
             return false;
         }
         
@@ -168,11 +179,14 @@ public class Board
         int passFile = fromFile + direction;
         int[] passRanks = {fromRank, fromRank, fromRank};
         int[] attackRanks = {fromRank - 1, fromRank, fromRank + 1};
-        for (int i = 0; i < 3; i++) {
-            if (isSquareAttacked(passFile, passRanks[i], color)) {
+        for (int i = 0; i < 3; i++) 
+        {
+            if (isSquareAttacked(passFile, passRanks[i], color)) 
+            {
                 return false;
             }
-            if (board[attackRanks[i]][passFile] != null) {
+            if (board[attackRanks[i]][passFile] != null) 
+            {
                 return false;
             }
         }
@@ -180,18 +194,27 @@ public class Board
         return true;
     }
     
-    public void makeMove(String move) 
+    public boolean makeMove(String move) 
     {
         // Parse the move string and update the board
         int fromFile = move.charAt(0) - 'a';
-        int fromRank = 8 - (move.charAt(1) - '0');
+        int fromRank = Character.getNumericValue(move.charAt(1)) - 1;
         int toFile = move.charAt(3) - 'a';
-        int toRank = 8 - (move.charAt(4) - '0');
-
+        int toRank = Character.getNumericValue(move.charAt(4)) - 1;
+        
         Piece piece = board[fromRank][fromFile];
-        board[fromRank][fromFile] = null;
-        board[toRank][toFile] = piece;
-        piece.setRank(toRank);
-        piece.setFile(toFile);
+        if (piece.isValidMove(toRank, toFile, board))
+        {
+            board[fromRank][fromFile] = null;
+            board[toRank][toFile] = piece;
+            piece.setRank(toRank);
+            piece.setFile(toFile);
+            return true;
+        }
+        else
+        {
+            System.out.print("Illegal move, try again");
+            return false;
+        }
     }
 }

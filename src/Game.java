@@ -104,12 +104,21 @@ public class Game {
             }
             else // In the case that the input does not contain "draw?" or "resign", we obtain the moves to process
             {
-                chessBoard.drawBoard();
-                char fromCol = input.charAt(0); // Gets the fromCol character
-                int fromRow = Character.getNumericValue(input.charAt(1)); // Gets the fromRow integer
-                char toCol = input.charAt(3); // Gets the toCol character
-                int toRow =  Character.getNumericValue(input.charAt(4)); // Gets the toRow integer
-                turn = !turn; // Flip the turn  
+                // Bottom 4 variables are for debugging
+                int fromFile = input.charAt(0) - 'a';
+                int fromRank = Character.getNumericValue(input.charAt(1)) - 1;
+                int toFile = input.charAt(3) - 'a';
+                int toRank = Character.getNumericValue(input.charAt(4)) - 1;
+                if(chessBoard.makeMove(input) == true)
+                {
+                    chessBoard.drawBoard();
+                    turn = !turn; // Flip the turn  
+                }
+                else // In the case that the move is not valid and returns false
+                {
+                    chessBoard.drawBoard();
+                    continue; // Continue without flipping the turn
+                }
             }
         }
     }

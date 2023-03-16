@@ -53,7 +53,7 @@ public class Pawn extends Piece {
                 }
             }
             // check if the pawn is moving two squares forward
-            if (getRank() == 6 && toRank == 4 && toFile == getFile()) 
+            if (getRank() == 1 && toRank == 3 && toFile == getFile()) 
             {
                 return true;
             }
@@ -74,7 +74,7 @@ public class Pawn extends Piece {
                 }
             }
             // check if the pawn is moving two squares forward
-            if (getRank() == 1 && toRank == 3 && toFile == getFile()) 
+            if (getRank() == 6 && toRank == 4 && toFile == getFile()) 
             {
                 return true;
             }
