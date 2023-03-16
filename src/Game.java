@@ -1,26 +1,7 @@
 import java.util.Scanner;
 
-public class Game {
-    public static void moveKnight() // TODO: Check if knight's move is valid, move accordingly
-    {
-
-    }
-    public static void castle() // TODO: Check if king is attempting a castling move, castle accordingly if valid
-    {
-
-    }
-    public static void enpassment() // TODO: Check if enpassment is valid
-    {
-
-    }
-    public static void promotion() // TODO: Check if a pawn has reached the end of the board, appropriately promote to queen
-    {
-
-    }
-    public static void check() // TODO: Validate if "check" has been achieved
-    {
-
-    }
+public class Game 
+{
     public static boolean resign(String input, Boolean turn) // TODO: resign the game for valid input by user
     {
         if (input.contains("resign")) // In the case that a player submits resign as their move, the other player automatically wins
@@ -123,3 +104,15 @@ public class Game {
         }
     }
 }
+
+/*
+ * TODO: Bugs list
+ * 1. Input f8 a3 gives index out of bounds error
+ * 2. Moving rooks does not check if there are any pieces in between its starting position and its final position, move should not be allowed if there are pieces between these two positions
+ * 3. Need to check if castling works
+ * 4. Need to implement empassment
+ * 5. Need to implement promotion
+ * 6. Need to check if check is identified properly
+ * 7. Need to test draw feature
+ * 8. Need to check if checkmate is prpoerly identified and properly ends the game
+ */
