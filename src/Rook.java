@@ -45,7 +45,7 @@ public class Rook extends Piece{
             int end = Math.max(getRank(), toRank);
             for (int i = start + 1; i < end; i++) 
             {
-                Piece piece = board[toRank][toFile];
+                Piece piece = board[i][toFile];
                 if (piece != null) 
                 {
                     return false;
@@ -65,7 +65,7 @@ public class Rook extends Piece{
             int end = Math.max(getFile(), toFile);
             for (int i = start + 1; i < end; i++) 
             {
-                Piece piece = board[toRank][toFile];
+                Piece piece = board[toRank][i];
                 if (piece != null) 
                 {
                     return false;
