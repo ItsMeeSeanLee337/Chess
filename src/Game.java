@@ -121,4 +121,5 @@ public class Game
  * 12. If a pawn is moving two spaces forward, does not check if the first space in front of it is already occupied, if so the move must not be allowed
  * 13. Pawn does not properly take pieces that it is diagonal to
  * 14. Input c8 g4 gives index out of bounds error, this is for moving a black bishop from it's starting position to g4
+ * 15. When a pawn is in its starting position, it is not allowed to only move one square forward, this should be allowed
  */
