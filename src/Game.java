@@ -22,35 +22,6 @@ public class Game
         }
     }
 
-    public static boolean draw(String input, Boolean turn, Scanner scanner, Board chessBoard) // Draw functionality works sometimes, needs testing for all cases
-    {
-        if (input.contains("draw?")) // In the case that a player offers a draw:
-        {
-            chessBoard.drawBoard();
-            if (turn == true)
-            {
-                System.out.print("Black's move: ");
-            }
-            else
-            {
-                System.out.print("White's move: ");
-            }
-            input = scanner.nextLine(); // If the other player sumbits "draw" as their move, the game ends
-            if (input.contains("draw"))
-            {
-                return true;
-            }
-            else // Otherwise the game should continue as normal
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public static void checkMate() // TODO: Validate if checkmate has been achieved, react appropriately
     {
 
@@ -75,11 +46,7 @@ public class Game
             }
             // TODO: Check if the move made is an illegal move, react appropriately
             String input = scanner.nextLine(); // read the user input as a single string, 
-            if (draw(input, turn, scanner, chessBoard)) // In the case that a player offers a draw:
-            {
-                return; // End the game if the input is "draw", otherwise continue the game as normal
-            }
-            else if (resign(input, turn)) // In the case that a player submits resign as their move, the other player automatically wins
+            if (resign(input, turn)) // In the case that a player submits resign as their move, the other player automatically wins
             {
                 return; // Ends the game if a player resigns
             }
@@ -100,6 +67,36 @@ public class Game
                     chessBoard.drawBoard();
                     continue; // Continue without flipping the turn
                 }
+                if (input.contains("draw?")) // In the case that a player offers a draw:
+                {
+                    if (turn == true)
+                    {
+                        System.out.print("White's move: ");
+                    }
+                    else
+                    {
+                        System.out.print("Black's move: ");
+                    }
+                    input = scanner.nextLine(); // If the other player sumbits "draw" as their move, the game ends
+                    if (input.contains("draw"))
+                    {
+                        return;
+                    }
+                    else // Otherwise the game should continue as normal
+                    {
+                        // In the very specific case that the other player does not accept the draw, and inputs an illegal move, then decides to accept the draw after inputting the illegal move we get an index out of bounds error
+                        if(chessBoard.makeMove(input, turn) == true)
+                        {
+                            chessBoard.drawBoard();
+                            turn = !turn; // Flip the turn  
+                        }
+                        else // In the case that the move is not valid and returns false
+                        {
+                            chessBoard.drawBoard();
+                            continue; // Continue without flipping the turn
+                        }
+                    }
+                }
             }
         }
     }
@@ -113,11 +110,10 @@ public class Game
  * 4. Need to implement empassment
  * 5. Need to implement promotion
  * 6. Need to check if check is identified properly
- * 7. Need to test draw feature
- * 8. Need to check if checkmate is prpoerly identified and properly ends the game
- * 9. Input c8 h3 gives index out of bounds error, this is for moving a black bishop from it's starting position to h3, I suspect this bug is for bishops specifically
- * 11. Rook is able to pass through pieces, need to check if this is a bug with rook specifically or applies to other pieces
- * 12. Input c8 g4 gives index out of bounds error, this is for moving a black bishop from it's starting position to g4
- * 13. Queen is able to pass through pieces if moving horizontally or vertically, not diagonally, byproduct of using rooks methods in the queen file
- * 14. Queen cannot make the move d6 a3, should be possible if queen is on square d6, possibly a byproduct of using bishop methods in the queen file
+ * 7. Need to check if checkmate is prpoerly identified and properly ends the game
+ * 8. Input c8 h3 gives index out of bounds error, this is for moving a black bishop from it's starting position to h3, I suspect this bug is for bishops specifically
+ * 9. Rook is able to pass through pieces, need to check if this is a bug with rook specifically or applies to other pieces
+ * 10. Input c8 g4 gives index out of bounds error, this is for moving a black bishop from it's starting position to g4
+ * 11. Queen is able to pass through pieces if moving horizontally or vertically, not diagonally, byproduct of using rooks methods in the queen file
+ * 12. Queen cannot make the move d6 a3, should be possible if queen is on square d6, possibly a byproduct of using bishop methods in the queen file
  */
