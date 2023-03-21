@@ -116,4 +116,5 @@ public class Game
  * 7. Need to test draw feature
  * 8. Need to check if checkmate is prpoerly identified and properly ends the game
  * 9. Input c8 h3 gives index out of bounds error, this is for moving a black bishop from it's starting position to h3, I suspect this bug is for bishops specifically
+ * 10. Other opponent can move pieces that he does not own
  */
