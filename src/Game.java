@@ -122,4 +122,6 @@ public class Game
  * 13. Pawn does not properly take pieces that it is diagonal to
  * 14. Input c8 g4 gives index out of bounds error, this is for moving a black bishop from it's starting position to g4
  * 15. When a pawn is in its starting position, it is not allowed to only move one square forward, this should be allowed
+ * 16. Queen is able to pass through pieces if moving horizontally or vertically, not diagonally, byproduct of using rooks methods in the queen file
+ * 17. Queen cannot make the move d6 a3, should be possible if queen is on square d6, possibly a byproduct of using bishop methods in the queen file
  */
