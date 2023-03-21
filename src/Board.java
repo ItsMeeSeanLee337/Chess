@@ -203,7 +203,12 @@ public class Board
         int toRank = Character.getNumericValue(move.charAt(4)) - 1;
         
         Piece piece = board[fromRank][fromFile];
-        if (piece.isValidMove(toRank, toFile, board))
+        if (piece == null) // Moving from an empty space
+        {
+            System.out.println("Illegal move, try again");
+            return false;
+        }
+        else if (piece.isValidMove(toRank, toFile, board))
         {
             board[fromRank][fromFile] = null;
             board[toRank][toFile] = piece;
