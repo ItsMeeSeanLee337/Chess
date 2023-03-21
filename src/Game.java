@@ -90,7 +90,7 @@ public class Game
                 int fromRank = Character.getNumericValue(input.charAt(1)) - 1;
                 int toFile = input.charAt(3) - 'a';
                 int toRank = Character.getNumericValue(input.charAt(4)) - 1;
-                if(chessBoard.makeMove(input) == true)
+                if(chessBoard.makeMove(input, turn) == true)
                 {
                     chessBoard.drawBoard();
                     turn = !turn; // Flip the turn  
@@ -116,7 +116,6 @@ public class Game
  * 7. Need to test draw feature
  * 8. Need to check if checkmate is prpoerly identified and properly ends the game
  * 9. Input c8 h3 gives index out of bounds error, this is for moving a black bishop from it's starting position to h3, I suspect this bug is for bishops specifically
- * 10. Other opponent can move pieces that he does not own
  * 11. Rook is able to pass through pieces, need to check if this is a bug with rook specifically or applies to other pieces
  * 13. Input c8 g4 gives index out of bounds error, this is for moving a black bishop from it's starting position to g4
  * 14. Queen is able to pass through pieces if moving horizontally or vertically, not diagonally, byproduct of using rooks methods in the queen file

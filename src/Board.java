@@ -194,7 +194,7 @@ public class Board
         return true;
     }
     
-    public boolean makeMove(String move) 
+    public boolean makeMove(String move, Boolean turn) 
     {
         // Parse the move string and update the board
         int fromFile = move.charAt(0) - 'a';
@@ -208,18 +208,38 @@ public class Board
             System.out.println("Illegal move, try again");
             return false;
         }
-        else if (piece.isValidMove(toRank, toFile, board))
+        else if (turn == true) // White move, meaning you can only move white pieces
         {
-            board[fromRank][fromFile] = null;
-            board[toRank][toFile] = piece;
-            piece.setRank(toRank);
-            piece.setFile(toFile);
-            return true;
+            if (piece.isValidMove(toRank, toFile, board) && piece.color == "White")
+            {
+                board[fromRank][fromFile] = null;
+                board[toRank][toFile] = piece;
+                piece.setRank(toRank);
+                piece.setFile(toFile);
+                return true;
+            }
+            else
+            {
+                System.out.println("Illegal move, try again");
+                return false;
+            }
         }
-        else
+        else // Black move, meaning you can only move black pieces
         {
-            System.out.println("Illegal move, try again");
-            return false;
+            if (piece.isValidMove(toRank, toFile, board) && piece.color == "Black")
+            {
+                board[fromRank][fromFile] = null;
+                board[toRank][toFile] = piece;
+                piece.setRank(toRank);
+                piece.setFile(toFile);
+                return true;
+            }
+            else
+            {
+                System.out.println("Illegal move, try again");
+                return false;
+            }
         }
+        
     }
 }
