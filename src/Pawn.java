@@ -52,8 +52,9 @@ public class Pawn extends Piece {
                     return true;
                 }
             }
-            // check if the pawn is moving two squares forward
-            if (getRank() == 1 && toRank == 3 && toFile == getFile()) 
+            // check if the pawn is moving two squares forward or one squre forward from starting position
+            // TODO: If moving two squares forward, must check if the square in front of it is not already occupied
+            if (getRank() == 1 && (toRank == 3 || toRank == 2) && toFile == getFile()) 
             {
                 return true;
             }
@@ -73,8 +74,9 @@ public class Pawn extends Piece {
                     return true;
                 }
             }
-            // check if the pawn is moving two squares forward
-            if (getRank() == 6 && toRank == 4 && toFile == getFile()) 
+            // check if the pawn is moving two squares forward or one squre forward from starting position
+            // TODO: If moving two squares forward, must check if the square in front of it is not already occupied
+            if (getRank() == 6 && (toRank == 4 || toRank == 5) && toFile == getFile()) 
             {
                 return true;
             }
