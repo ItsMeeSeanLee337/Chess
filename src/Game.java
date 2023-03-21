@@ -117,4 +117,6 @@ public class Game
  * 8. Need to check if checkmate is prpoerly identified and properly ends the game
  * 9. Input c8 h3 gives index out of bounds error, this is for moving a black bishop from it's starting position to h3, I suspect this bug is for bishops specifically
  * 10. Other opponent can move pieces that he does not own
+ * 11. Rook is able to pass through pieces, need to check if this is a bug with rook specifically or applies to other pieces
+ * 12. If a pawn is moving two spaces forward, does not check if the first space in front of it is already occupied, if so the move must not be allowed
  */
