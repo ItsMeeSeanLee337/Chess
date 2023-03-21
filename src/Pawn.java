@@ -39,10 +39,10 @@ public class Pawn extends Piece {
         Piece destPiece = board[toRank][toFile]; // check if the destination square is empty
         if (getColor().equals("White")) // White pawn
         {
-            if (toRank == getRank() - 1) 
+            if (toRank == getRank() + 1) 
             {
                 // pawn is moving one square forward
-                if (toFile == getFile()) 
+                if (toFile == getFile() && destPiece == null) 
                 {
                     return true;
                 }
@@ -58,17 +58,17 @@ public class Pawn extends Piece {
             {
                 return true;
             }
-            else if (getRank() == 1 && toRank == 2 && toFile == getFile()) 
+            else if (getRank() == 1 && toRank == 2 && destPiece == null && toFile == getFile()) 
             {
                 return true;
             }
         } 
         else // black pawn
         {
-            if (toRank == getRank() + 1) 
+            if (toRank == getRank() - 1) 
             {
                 // pawn is moving one square forward
-                if (toFile == getFile()) 
+                if (toFile == getFile() && destPiece == null) 
                 {
                     return true;
                 }
@@ -84,7 +84,7 @@ public class Pawn extends Piece {
             {
                 return true;
             }
-            else if (getRank() == 6 && toRank == 5 && toFile == getFile()) 
+            else if (getRank() == 6 && toRank == 5 && destPiece == null && toFile == getFile()) 
             {
                 return true;
             }
