@@ -104,13 +104,9 @@ public class Game
 
 /*
  * TODO: Bugs list
- * 1. Input f8 a3 gives index out of bounds error, this is for moving a black bishop from it's starting position to a3, need to check if this bug applies to all bishops and/or pieces
- * 2. Need to check if castling works
- * 3. Need to implement empassment
- * 4. Need to implement promotion
- * 5. Need to check if check is identified properly
- * 6. Need to check if checkmate is prpoerly identified and properly ends the game
- * 7. Input c8 h3 gives index out of bounds error, this is for moving a black bishop from it's starting position to h3, I suspect this bug is for bishops specifically
- * 8. Input c8 g4 gives index out of bounds error, this is for moving a black bishop from it's starting position to g4
- * 9. Queen cannot make the move d6 a3, should be possible if queen is on square d6, possibly a byproduct of using bishop methods in the queen file
+ * 1. Need to check if castling works
+ * 2. Need to implement empassment
+ * 3. Need to implement promotion
+ * 4. Need to check if check is identified properly
+ * 5. Need to check if checkmate is prpoerly identified and properly ends the game
  */

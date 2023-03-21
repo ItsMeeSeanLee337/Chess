@@ -49,8 +49,24 @@ public class Bishop extends Piece{
             return false;
         }
 
-        int rankDir = rankDiff > 0 ? 1 : -1;
-        int fileDir = rankDiff > 0 ? 1 : -1;
+        int rankDir;
+        int fileDir;
+        if (getRank() - toRank > 0) // If the getRank - toRank > 0, we are moving downwards
+        {
+            rankDir = -1;
+        }
+        else
+        {
+            rankDir = 1; // Otherwise, we are moving upwards
+        }
+        if (getFile() - toFile > 0) // If the getFile - toFile > 0, we are moving downwards
+        {
+            fileDir = -1;
+        }
+        else
+        {
+            fileDir = 1;
+        }
 
         int curRank = getRank() + rankDir;
         int curFile = getFile() + fileDir;
