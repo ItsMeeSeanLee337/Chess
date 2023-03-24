@@ -1,33 +1,52 @@
+/**
+ * Defines a King piece
+ */
 public class King extends Piece
 {
+    /**
+     * Determines if a King has moved
+     */  
     private boolean hasMoved;
-    
+    /**
+     * Constructor
+     * @param color Black/White
+     * @param rank Row
+     * @param file Column
+     */     
     public King(String color, int rank, int file) 
     {
         super(color, color.equals("White") ? "wK" : "bK", rank, file);
         this.hasMoved = false;
     }
-    
+    /**
+     * Sets King's Row and sets {@link #hasMoved hasMoved} to true
+     */     
     @Override
     public void setRank(int toRank) 
     {
         super.setRank(toRank);
         hasMoved = true;
     }
-
+    /**
+     * Sets King's Column and sets {@link #hasMoved hasMoved} to true
+     */
     @Override
     public void setFile(int toFile) 
     {
         super.setFile(toFile);
         hasMoved = true;
     }
-
+    /**
+     * Returns {@link #hasMoved hasMoved}
+     */
     @Override
     public boolean hasMoved() 
     {
         return hasMoved;
     }
-
+    /**
+     * Defines the valid moves for a King
+     */
     @Override
     public boolean isValidMove(int toRank, int toFile, Piece[][] board) 
     {

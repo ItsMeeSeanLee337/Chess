@@ -1,31 +1,50 @@
+/**
+ * Defines a Rook piece
+ */
 public class Rook extends Piece{
+    /**
+     * Determines if a Rook has moved
+     */
     private boolean hasMoved;
-    
+    /**
+     * Constructor
+     * @param color Black/White
+     * @param rank Row
+     * @param file Column
+     */
     public Rook(String color, int rank, int file) {
         super(color, color.equals("White") ? "wR" : "bR", rank, file);
         this.hasMoved = false;
     }
-
+    /**
+     * Sets Rook's Row and sets {@link #hasMoved hasMoved} to true
+     */
     @Override
     public void setRank(int toRank) 
     {
         super.setRank(toRank);
         hasMoved = true;
     }
-
+    /**
+     * Sets Rook's Column and sets {@link #hasMoved hasMoved} to true
+     */
     @Override
     public void setFile(int toFile) 
     {
         super.setFile(toFile);
         hasMoved = true;
     }
-
+    /**
+     * Returns {@link #hasMoved hasMoved}
+     */
     @Override
     public boolean hasMoved() 
     {
         return hasMoved;
     }
-
+    /**
+     * Defines the valid moves for a Rook
+     */
     @Override
     public boolean isValidMove(int toRank, int toFile, Piece[][] board) 
     {

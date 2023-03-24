@@ -1,32 +1,51 @@
+/**
+ * Defines a Pawn piece
+ */
 public class Pawn extends Piece {
+    /**
+     * Determines if a Pawn has moved
+     */   
     private boolean hasMoved;
-    
+    /**
+     * Constructor
+     * @param color Black/White
+     * @param rank Row
+     * @param file Column
+     */     
     public Pawn(String color, int rank, int file) 
     {
         super(color, color.equals("White") ? "wP" : "bP", rank, file);
         this.hasMoved = false;
     }
-
+    /**
+     * Sets Pawn's Row and sets {@link #hasMoved hasMoved} to true
+     */ 
     @Override
     public void setRank(int toRank) 
     {
         super.setRank(toRank);
         hasMoved = true;
     }
-
+    /**
+     * Sets Pawn's Column and sets {@link #hasMoved hasMoved} to true
+     */
     @Override
     public void setFile(int toFile) 
     {
         super.setFile(toFile);
         hasMoved = true;
     }
-
+    /**
+     * Returns {@link #hasMoved hasMoved}
+     */
     @Override
     public boolean hasMoved() 
     {
         return hasMoved;
     }
-
+    /**
+     * Defines the valid moves for a Pawn
+     */
     @Override
     public boolean isValidMove(int toRank, int toFile, Piece[][] board) 
     {

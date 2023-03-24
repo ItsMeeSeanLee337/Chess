@@ -1,7 +1,15 @@
 import java.util.Scanner;
-
+/**
+ * Defines rules like Resigning, Check/Checkmate, Empassment, and Promotion
+ */
 public class Game 
 {
+    /**
+     * Handles for when a player decides to resign
+     * @param input Input from console
+     * @param turn True during the players turn
+     * @return True for resigning, false if not
+     */
     public static boolean resign(String input, Boolean turn) // TODO: resign the game for valid input by user
     {
         if (input.contains("resign")) // In the case that a player submits resign as their move, the other player automatically wins
@@ -21,7 +29,9 @@ public class Game
             return false;
         }
     }
-
+    /**
+     * To handle checkmates
+     */
     public static void checkMate() // TODO: Validate if checkmate has been achieved, react appropriately
     {
 

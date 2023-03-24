@@ -1,13 +1,23 @@
+/**
+ * Draws/Initiliazes the board and handles movement/boundries
+ */
 public class Board 
 {
+    /**
+     * Array of pieces
+     */
     private Piece[][] board;
-
+    /**
+     * Draws the {@link #board board} dimensions and calls {@link #initializeBoard() initializeBoard()}
+     */
     public Board() 
     {
         board = new Piece[8][8];
         initializeBoard();
     }
-
+    /**
+     * Initializes the board and populates it with pieces
+     */
     public void initializeBoard() 
     {
         // Create and place white pieces
@@ -38,7 +48,9 @@ public class Board
             board[6][i] = new Pawn("Black", 6, i);
         }
     }
-    
+    /**
+     * Draws out the visuals for the board
+     */
     public void drawBoard() // TODO: drawBoard() does not draw the board in the way shown in the example, easy fix, current iteration is for readablity
     {
         System.out.print(" ");
@@ -74,7 +86,11 @@ public class Board
         }
         System.out.println();
     }
-
+    /**
+     * Checks if one of the kings has been check'd
+     * @param color Black/White
+     * @return true if the color's king is in check, false if not
+     */
     public boolean isCheck(String color) 
     {
         int kingRank = -1;
@@ -112,7 +128,13 @@ public class Board
     
         return false;
     }
-
+    /**
+     * Checks if pieces can attack a given square
+     * @param rank Row 
+     * @param file Column
+     * @param color Black/White
+     * @return true if a piece can attack with a valid move
+     */
     public boolean isSquareAttacked(int rank, int file, String color) 
     {
         // Check if any of the opponent's pieces can attack the given square
@@ -135,7 +157,12 @@ public class Board
         return false;
     }
     
-    
+    /**
+     * Determines that a castling move is valid
+     * @param move Move Data
+     * @param color Black/White
+     * @return True/False if it is/is not a valid move
+     */
     public boolean isValidCastlingMove(String move, String color) 
     {
         // Parse the move string and get the king's starting and ending positions
@@ -193,7 +220,12 @@ public class Board
         
         return true;
     }
-    
+    /**
+     * Makes moves and updates the board
+     * @param move Move Data
+     * @param turn Whos turn it is
+     * @return True or False if the move is valid
+     */
     public boolean makeMove(String move, Boolean turn) 
     {
         // Parse the move string and update the board
