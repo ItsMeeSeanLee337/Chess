@@ -234,21 +234,36 @@ public class Board
         int toFile = move.charAt(3) - 'a';
         int toRank = Character.getNumericValue(move.charAt(4)) - 1;
         
-        Piece piece = board[fromRank][fromFile];
-        if (piece == null) // Moving from an empty space
+        Piece fromPiece = board[fromRank][fromFile]; // Piece that we are starting from
+        Piece toPiece = board[toRank][toFile]; // Piece that we are going to, null if it is an empty space
+        if (fromPiece == null) // Moving from an empty space
         {
             System.out.println("Illegal move, try again");
             return false;
         }
         else if (turn == true) // White move, meaning you can only move white pieces
         {
-            if (piece.isValidMove(toRank, toFile, board) && piece.color == "White")
+            if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "White")
             {
+                // Execute the move
                 board[fromRank][fromFile] = null;
-                board[toRank][toFile] = piece;
-                piece.setRank(toRank);
-                piece.setFile(toFile);
-                return true;
+                board[toRank][toFile] = fromPiece;
+                fromPiece.setRank(toRank);
+                fromPiece.setFile(toFile);
+                if (isCheck("White") == true)
+                {
+                    // Reverse the move
+                    board[fromRank][fromFile] = fromPiece;
+                    fromPiece.setRank(toRank);
+                    fromPiece.setFile(toFile);
+                    board[toRank][toFile] = toPiece;
+                    System.out.println("Illegal move, try again");
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
@@ -258,13 +273,27 @@ public class Board
         }
         else // Black move, meaning you can only move black pieces
         {
-            if (piece.isValidMove(toRank, toFile, board) && piece.color == "Black")
+            if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "Black")
             {
+                // Execute the move
                 board[fromRank][fromFile] = null;
-                board[toRank][toFile] = piece;
-                piece.setRank(toRank);
-                piece.setFile(toFile);
-                return true;
+                board[toRank][toFile] = fromPiece;
+                fromPiece.setRank(toRank);
+                fromPiece.setFile(toFile);
+                if (isCheck("White") == true)
+                {
+                    // Reverse the move
+                    board[fromRank][fromFile] = fromPiece;
+                    fromPiece.setRank(toRank);
+                    fromPiece.setFile(toFile);
+                    board[toRank][toFile] = toPiece;
+                    System.out.println("Illegal move, try again");
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
