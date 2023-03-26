@@ -35,8 +35,17 @@ public class Game
      * @param color Black/White
      * @return true if a king of a certain color is in checkmate
      */
-    public boolean checkMate(Piece[][] chessBoard, String color) // TODO: Validate if checkmate has been achieved, react appropriately
+    public static boolean checkMate(Piece[][] board, boolean turn) // TODO: Validate if checkmate has been achieved, react appropriately
     {
+        String color;
+        if (turn = true)
+        {
+            color = "White";
+        }
+        else
+        {
+            color = "Black";
+        }
         int kingRank = -1;
         int kingFile = -1;
     
@@ -45,7 +54,7 @@ public class Game
         {
             for (int j = 0; j < 8; j++) 
             {
-                Piece piece = chessBoard[i][j];
+                Piece piece = board[i][j];
                 if (piece instanceof King && piece.getColor().equals(color)) 
                 {
                     kingRank = i;
@@ -62,47 +71,47 @@ public class Game
          * 7 8 9
          */
         // position 1: i - 1, j - 1
-        if (Board.isSquareAttacked((kingRank - 1), (kingFile - 1), color, chessBoard))
+        if (Board.isSquareAttacked((kingRank - 1), (kingFile - 1), color, board))
         {
             return true;
         }
         // position 2: i - 1, j
-        if (Board.isSquareAttacked((kingRank - 1), (kingFile), color, chessBoard))
+        if (Board.isSquareAttacked((kingRank - 1), (kingFile), color, board))
         {
             return true;
         }
         // position 3: i - 1, j + 1
-        if (Board.isSquareAttacked((kingRank - 1), (kingFile + 1), color, chessBoard))
+        if (Board.isSquareAttacked((kingRank - 1), (kingFile + 1), color, board))
         {
             return true;
         }
         // position 4: i, j - 1
-        if (Board.isSquareAttacked((kingRank), (kingFile - 1), color, chessBoard))
+        if (Board.isSquareAttacked((kingRank), (kingFile - 1), color, board))
         {
             return true;
         }
         // position 5: i, j
-        if (Board.isSquareAttacked((kingRank), (kingFile), color, chessBoard))
+        if (Board.isSquareAttacked((kingRank), (kingFile), color, board))
         {
             return true;
         }
         // position 6: i, j + 1
-        if (Board.isSquareAttacked((kingRank), (kingFile + 1), color, chessBoard))
+        if (Board.isSquareAttacked((kingRank), (kingFile + 1), color, board))
         {
             return true;
         }
         // position 7: i + 1, j - 1
-        if (Board.isSquareAttacked((kingRank + 1), (kingFile - 1), color, chessBoard))
+        if (Board.isSquareAttacked((kingRank + 1), (kingFile - 1), color, board))
         {
             return true;
         }
         // position 8: i + 1, j
-        if (Board.isSquareAttacked((kingRank + 1), (kingFile), color, chessBoard))
+        if (Board.isSquareAttacked((kingRank + 1), (kingFile), color, board))
         {
             return true;
         }
         // position 9: i + 1, j + 1
-        if (Board.isSquareAttacked((kingRank + 1), (kingFile + 1), color, chessBoard))
+        if (Board.isSquareAttacked((kingRank + 1), (kingFile + 1), color, board))
         {
             return true;
         }
@@ -144,6 +153,21 @@ public class Game
                 int toRank = Character.getNumericValue(input.charAt(4)) - 1;
                 if(chessBoard.makeMove(input, turn) == true)
                 {
+                    if (checkMate(chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                    {
+                        if (turn == true)
+                        {
+                            System.out.println("Checkmate");
+                            System.out.println("Black wins");
+                            return;
+                        }
+                        else
+                        {
+                            System.out.println("Checkmate");
+                            System.out.println("White wins");
+                            return;
+                        }
+                    }
                     chessBoard.drawBoard();
                     turn = !turn; // Flip the turn  
                 }
@@ -172,6 +196,21 @@ public class Game
                         // In the very specific case that the other player does not accept the draw, and inputs an illegal move, then decides to accept the draw after inputting the illegal move we get an index out of bounds error
                         if(chessBoard.makeMove(input, turn) == true)
                         {
+                            if (checkMate(chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                            {
+                                if (turn == true)
+                                {
+                                    System.out.println("Checkmate");
+                                    System.out.println("Black wins");
+                                    return;
+                                }
+                                else
+                                {
+                                    System.out.println("Checkmate");
+                                    System.out.println("White wins");
+                                    return;
+                                }
+                            }
                             chessBoard.drawBoard();
                             turn = !turn; // Flip the turn  
                         }

@@ -6,7 +6,7 @@ public class Board
     /**
      * Array of pieces
      */
-    private Piece[][] board;
+    public Piece[][] board;
     /**
      * Draws the {@link #board board} dimensions and calls {@link #initializeBoard() initializeBoard()}
      */
