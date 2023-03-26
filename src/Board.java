@@ -243,7 +243,15 @@ public class Board
         }
         else if (turn == true) // White move, meaning you can only move white pieces
         {
-            if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "White")
+            if (isValidCastlingMove(move, "White") == true)
+            {
+                board[fromRank][fromFile] = null;
+                board[toRank][toFile] = fromPiece;
+                fromPiece.setRank(toRank);
+                fromPiece.setFile(toFile);
+                return true;
+            }
+            else if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "White")
             {
                 // Execute the move
                 board[fromRank][fromFile] = null;
@@ -273,7 +281,15 @@ public class Board
         }
         else // Black move, meaning you can only move black pieces
         {
-            if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "Black")
+            if (isValidCastlingMove(move, "Black") == true)
+            {
+                board[fromRank][fromFile] = null;
+                board[toRank][toFile] = fromPiece;
+                fromPiece.setRank(toRank);
+                fromPiece.setFile(toFile);
+                return true;
+            }
+            else if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "Black")
             {
                 // Execute the move
                 board[fromRank][fromFile] = null;
