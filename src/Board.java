@@ -133,9 +133,10 @@ public class Board
      * @param rank Row 
      * @param file Column
      * @param color Black/White
+     * @param board chessboard
      * @return true if a piece can attack with a valid move
      */
-    public boolean isSquareAttacked(int rank, int file, String color) 
+    public static boolean isSquareAttacked(int rank, int file, String color, Piece[][] board) 
     {
         // Check if any of the opponent's pieces can attack the given square
         for (int i = 0; i < 8; i++) 
@@ -208,7 +209,7 @@ public class Board
         int[] attackRanks = {fromRank - 1, fromRank, fromRank + 1};
         for (int i = 0; i < 3; i++) 
         {
-            if (isSquareAttacked(passFile, passRanks[i], color)) 
+            if (isSquareAttacked(passFile, passRanks[i], color, board)) 
             {
                 return false;
             }

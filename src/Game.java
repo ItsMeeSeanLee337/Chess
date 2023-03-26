@@ -31,10 +31,85 @@ public class Game
     }
     /**
      * To handle checkmates
+     * @param Piece[][] chessboard
+     * @param color Black/White
+     * @return true if a king of a certain color is in checkmate
      */
-    public static void checkMate() // TODO: Validate if checkmate has been achieved, react appropriately
+    public boolean checkMate(Piece[][] chessBoard, String color) // TODO: Validate if checkmate has been achieved, react appropriately
     {
-
+        int kingRank = -1;
+        int kingFile = -1;
+    
+        // Find the location of the king of the given color
+        for (int i = 0; i < 8; i++) 
+        {
+            for (int j = 0; j < 8; j++) 
+            {
+                Piece piece = chessBoard[i][j];
+                if (piece instanceof King && piece.getColor().equals(color)) 
+                {
+                    kingRank = i;
+                    kingFile = j;
+                }
+            }
+        }
+    
+        // Check if any of the opponent's pieces can attack the king at his current position, or any of the other 8 positions he can move to
+        // Current iteration does not account for when there aren't 8 positions the king can move to, such as if the king is in a corner
+        /*
+         * 1 2 3
+         * 4 5 6
+         * 7 8 9
+         */
+        // position 1: i - 1, j - 1
+        if (Board.isSquareAttacked((kingRank - 1), (kingFile - 1), color, chessBoard))
+        {
+            return true;
+        }
+        // position 2: i - 1, j
+        if (Board.isSquareAttacked((kingRank - 1), (kingFile), color, chessBoard))
+        {
+            return true;
+        }
+        // position 3: i - 1, j + 1
+        if (Board.isSquareAttacked((kingRank - 1), (kingFile + 1), color, chessBoard))
+        {
+            return true;
+        }
+        // position 4: i, j - 1
+        if (Board.isSquareAttacked((kingRank), (kingFile - 1), color, chessBoard))
+        {
+            return true;
+        }
+        // position 5: i, j
+        if (Board.isSquareAttacked((kingRank), (kingFile), color, chessBoard))
+        {
+            return true;
+        }
+        // position 6: i, j + 1
+        if (Board.isSquareAttacked((kingRank), (kingFile + 1), color, chessBoard))
+        {
+            return true;
+        }
+        // position 7: i + 1, j - 1
+        if (Board.isSquareAttacked((kingRank + 1), (kingFile - 1), color, chessBoard))
+        {
+            return true;
+        }
+        // position 8: i + 1, j
+        if (Board.isSquareAttacked((kingRank + 1), (kingFile), color, chessBoard))
+        {
+            return true;
+        }
+        // position 9: i + 1, j + 1
+        if (Board.isSquareAttacked((kingRank + 1), (kingFile + 1), color, chessBoard))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     } 
 
     public static void main(String[] args) {
