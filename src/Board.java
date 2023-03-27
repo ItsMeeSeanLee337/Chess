@@ -275,16 +275,16 @@ public class Board
                     switch (promotionPiece)
                     {
                         case 'R': // Rook
-                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Rook("White", toRank, toFile);
                         case 'N': // Knight
-                            board[fromRank][fromFile] = null;
+                        board[toRank][toFile] = null;
                             board[toRank][toFile] = new Knight("White", toRank, toFile);
                         case 'B': // Bishop
-                            board[fromRank][fromFile] = null;
+                        board[toRank][toFile] = null;
                             board[toRank][toFile] = new Bishop("White", toRank, toFile);
                         default: // Queen
-                            board[fromRank][fromFile] = null;
+                        board[toRank][toFile] = null;
                             board[toRank][toFile] = new Queen("White", toRank, toFile);
                     }
                     if (isCheck("White") == true) // If the move puts the player into check, reverse the move and prompt the user for a valid input
@@ -346,16 +346,16 @@ public class Board
                     switch (promotionPiece)
                     {
                         case 'R': // Rook
-                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Rook("Black", toRank, toFile);
                         case 'N': // Knight
-                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Knight("Black", toRank, toFile);
                         case 'B': // Bishop
-                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Bishop("Black", toRank, toFile);
                         default: // Queen
-                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Queen("Black", toRank, toFile);
                     }
                     if (isCheck("Black") == true) // If the move puts the player into check, reverse the move and prompt the user for a valid input
