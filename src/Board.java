@@ -263,8 +263,8 @@ public class Board
                 {
                     // Reverse the move
                     board[fromRank][fromFile] = fromPiece;
-                    fromPiece.setRank(toRank);
-                    fromPiece.setFile(toFile);
+                    fromPiece.setRank(fromRank);
+                    fromPiece.setFile(fromFile);
                     board[toRank][toFile] = toPiece;
                     System.out.println("Illegal move, try again");
                     return false;
@@ -301,8 +301,8 @@ public class Board
                 {
                     // Reverse the move
                     board[fromRank][fromFile] = fromPiece;
-                    fromPiece.setRank(toRank);
-                    fromPiece.setFile(toFile);
+                    fromPiece.setRank(fromRank);
+                    fromPiece.setFile(fromFile);
                     board[toRank][toFile] = toPiece;
                     System.out.println("Illegal move, try again");
                     return false;

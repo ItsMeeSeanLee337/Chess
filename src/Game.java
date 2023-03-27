@@ -31,11 +31,12 @@ public class Game
     }
     /**
      * To handle checkmates
-     * @param Piece[][] chessboard
+     * @param chessBoard Board
+     * @param board piece array
      * @param color Black/White
      * @return true if a king of a certain color is in checkmate
      */
-    public static boolean checkMate(Piece[][] board, boolean turn) // TODO: Validate if checkmate has been achieved, react appropriately
+    public static boolean checkMate(Board chessBoard, Piece[][] board, boolean turn) // TODO: Validate if checkmate has been achieved, react appropriately
     {
         String color;
         if (turn = true)
@@ -63,61 +64,50 @@ public class Game
             }
         }
     
-        // Check if any of the opponent's pieces can attack the king at his current position, or any of the other 8 positions he can move to
-        // Current iteration does not account for when there aren't 8 positions the king can move to, such as if the king is in a corner
-        /*
-         * 1 2 3
-         * 4 5 6
-         * 7 8 9
-         */
-        // position 1: i - 1, j - 1
-        if (Board.isSquareAttacked((kingRank - 1), (kingFile - 1), color, board))
+        if (chessBoard.isCheck("color") == false) // If the king is not in check, then checkmate is not possible
         {
-            return true;
-        }
-        // position 2: i - 1, j
-        if (Board.isSquareAttacked((kingRank - 1), (kingFile), color, board))
-        {
-            return true;
-        }
-        // position 3: i - 1, j + 1
-        if (Board.isSquareAttacked((kingRank - 1), (kingFile + 1), color, board))
-        {
-            return true;
-        }
-        // position 4: i, j - 1
-        if (Board.isSquareAttacked((kingRank), (kingFile - 1), color, board))
-        {
-            return true;
-        }
-        // position 5: i, j
-        if (Board.isSquareAttacked((kingRank), (kingFile), color, board))
-        {
-            return true;
-        }
-        // position 6: i, j + 1
-        if (Board.isSquareAttacked((kingRank), (kingFile + 1), color, board))
-        {
-            return true;
-        }
-        // position 7: i + 1, j - 1
-        if (Board.isSquareAttacked((kingRank + 1), (kingFile - 1), color, board))
-        {
-            return true;
-        }
-        // position 8: i + 1, j
-        if (Board.isSquareAttacked((kingRank + 1), (kingFile), color, board))
-        {
-            return true;
-        }
-        // position 9: i + 1, j + 1
-        if (Board.isSquareAttacked((kingRank + 1), (kingFile + 1), color, board))
-        {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            Piece king = board[kingRank][kingFile];
+            for (int row = -1; row <= 1; row++) 
+            {
+                for (int col = -1; col <= 1; col++) 
+                {
+                    if (row == 0 && col == 0) 
+                    {
+                        continue;
+                    }
+
+                    int destRow = kingRank + row;
+                    int destCol = kingFile + col;
+                    // Check if the king can move to this position
+                    Piece tempPiece = board[destRow][destCol];
+                    if (king.isValidMove(destRow, destCol,board)) 
+                    {
+                        // Move the king to this position and check if it is still in check
+                        board[destRow][destCol] = king;
+                        king.setRank(destRow);
+                        king.setFile(destCol);
+
+                        boolean stillCheck = chessBoard.isCheck("White");
+
+                        // Undo the move
+                        board[destRow][destCol] = tempPiece;
+                        king.setRank(kingRank);
+                        king.setFile(kingFile);
+
+                        // If the king can move out of check, then it is not checkmate
+                        if (stillCheck == false) 
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            // If the king cannot move out of check, then it is checkmate
+            return true;
         }
     } 
 
@@ -161,7 +151,7 @@ public class Game
                 int toRank = Character.getNumericValue(input.charAt(4)) - 1;
                 if(chessBoard.makeMove(input, turn) == true)
                 {
-                    if (checkMate(chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                    if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
                     {
                         if (turn == true)
                         {
@@ -212,7 +202,7 @@ public class Game
                         // In the very specific case that the other player does not accept the draw, and inputs an illegal move, then decides to accept the draw after inputting the illegal move we get an index out of bounds error
                         if(chessBoard.makeMove(input, turn) == true)
                         {
-                            if (checkMate(chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                            if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
                             {
                                 if (turn == true)
                                 {
