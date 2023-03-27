@@ -51,18 +51,10 @@ public class Board
     /**
      * Draws out the visuals for the board
      */
-    public void drawBoard() // TODO: drawBoard() does not draw the board in the way shown in the example, easy fix, current iteration is for readablity
+    public void drawBoard()
     {
-        System.out.print(" ");
-        for (char file = 'a'; file <= 'h'; file++) 
-        {
-            System.out.print("  " + file + " ");
-        }
-        System.out.println();
-        
         for (int rank = 8; rank >= 1; rank--) 
         {
-            System.out.print(rank);
             for (char file = 'a'; file <= 'h'; file++) 
             {
                 if (((rank + file) % 2 == 0) && (board[rank - 1][file - 'a'] == null))
@@ -221,6 +213,30 @@ public class Board
         
         return true;
     }
+
+    /**
+     * Checks if a move is a valid promotion move and acts accordingly
+     * @param move Move Data
+     * @param color Black/White
+     * @param turn Whos turn it is
+     * @return True if the move is a valid promotion, false otherwise
+     */
+    public boolean promotion(int fromRank, int toRank, String color)
+    {
+        if ((fromRank == 2 && toRank == 1) && color == "White") // Valid white promotion
+        {
+            return true;
+        }
+        else if ((fromRank == 7 && toRank == 8) && color == "Black") // Valid black promotion
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     /**
      * Makes moves and updates the board
      * @param move Move Data
@@ -254,12 +270,45 @@ public class Board
             }
             else if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "White")
             {
-                // Execute the move
+                if (promotion(fromRank, toRank,"White")) // If it is a valid promotion move act accordingly
+                {
+                    char promotionPiece = move.charAt(6);
+                    switch (promotionPiece)
+                    {
+                        case 'R': // Rook
+                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = new Rook("White", toRank, toFile);
+                        case 'N': // Knight
+                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = new Knight("White", toRank, toFile);
+                        case 'B': // Bishop
+                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = new Bishop("White", toRank, toFile);
+                        default: // Queen
+                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = new Queen("White", toRank, toFile);
+                    }
+                    if (isCheck("White") == true) // If the move puts the player into check, reverse the move and prompt the user for a valid input
+                    {
+                        // Reverse the move
+                        board[fromRank][fromFile] = fromPiece;
+                        fromPiece.setRank(fromRank);
+                        fromPiece.setFile(fromFile);
+                        board[toRank][toFile] = toPiece;
+                        System.out.println("Illegal move, try again");
+                        return false;
+                    }
+                    else // Otherwise return true since the move is valid
+                    {
+                        return true;
+                    }
+                }
+                // Otherwise execute the move as is
                 board[fromRank][fromFile] = null;
                 board[toRank][toFile] = fromPiece;
                 fromPiece.setRank(toRank);
                 fromPiece.setFile(toFile);
-                if (isCheck("White") == true)
+                if (isCheck("White") == true) // If the move puts the player into check, reverse the move and prompt the user for a valid input
                 {
                     // Reverse the move
                     board[fromRank][fromFile] = fromPiece;
@@ -269,7 +318,7 @@ public class Board
                     System.out.println("Illegal move, try again");
                     return false;
                 }
-                else
+                else // Otherwise return true since the move is valid
                 {
                     return true;
                 }
@@ -292,12 +341,45 @@ public class Board
             }
             else if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "Black")
             {
-                // Execute the move
+                if (promotion(fromRank, toRank,"Black")) // If it is a valid promotion move act accordingly
+                {
+                    char promotionPiece = move.charAt(6);
+                    switch (promotionPiece)
+                    {
+                        case 'R': // Rook
+                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = new Rook("Black", toRank, toFile);
+                        case 'N': // Knight
+                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = new Knight("Black", toRank, toFile);
+                        case 'B': // Bishop
+                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = new Bishop("Black", toRank, toFile);
+                        default: // Queen
+                            board[fromRank][fromFile] = null;
+                            board[toRank][toFile] = new Queen("Black", toRank, toFile);
+                    }
+                    if (isCheck("Black") == true) // If the move puts the player into check, reverse the move and prompt the user for a valid input
+                    {
+                        // Reverse the move
+                        board[fromRank][fromFile] = fromPiece;
+                        fromPiece.setRank(fromRank);
+                        fromPiece.setFile(fromFile);
+                        board[toRank][toFile] = toPiece;
+                        System.out.println("Illegal move, try again");
+                        return false;
+                    }
+                    else // Otherwise return true since the move is valid
+                    {
+                        return true;
+                    }
+                }
+                // Otherwise execute the move as is
                 board[fromRank][fromFile] = null;
                 board[toRank][toFile] = fromPiece;
                 fromPiece.setRank(toRank);
                 fromPiece.setFile(toFile);
-                if (isCheck("White") == true)
+                if (isCheck("Black") == true) // If the move puts the player into check, reverse the move and prompt the user for a valid input
                 {
                     // Reverse the move
                     board[fromRank][fromFile] = fromPiece;
