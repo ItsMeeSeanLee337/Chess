@@ -234,9 +234,9 @@ public class Game
 
 /*
  * TODO: Bugs list
- * 1. Need to check if castling works
+ * 1. Need to test castling
  * 2. Need to implement empassment
- * 3. Need to implement promotion
- * 4. Need to check if check is identified properly
- * 5. Need to check if checkmate is prpoerly identified and properly ends the game
+ * 3. Need to test promotion
+ * 4. Need to test check method
+ * 5. Need to test checkMate method
  */
