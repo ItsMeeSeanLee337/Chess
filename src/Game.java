@@ -39,7 +39,7 @@ public class Game
     public static boolean checkMate(Board chessBoard, Piece[][] board, boolean turn)
     {
         String color;
-        if (turn == true)
+        if (turn == true) // If it is White's turn, we need to identify if the Black king is in checkmate, vice versa
         {
             color = "Black";
         }
@@ -56,7 +56,7 @@ public class Game
             for (int j = 0; j < 8; j++) 
             {
                 Piece piece = board[i][j];
-                if (piece instanceof King && piece.getColor() == color) 
+                if (piece instanceof King && piece.getColor().equals(color)) 
                 {
                     kingRank = i;
                     kingFile = j;
@@ -163,26 +163,24 @@ public class Game
                         {
                             return; // Ends the game if a player resigns
                         }
-                        if(chessBoard.makeMove(input, turn) == true) // Execute the move as normal otherwise
+                        else if (toFile == oldFile && fromRank == 3 && toRank == 2 && chessBoard.board[fromRank][fromFile] instanceof Pawn) // If the conditions for Enpassant are valid, remove the black pawn that advanced two squares
                         {
-                            if (toFile == oldFile && fromRank == 3 && toRank == 2 && chessBoard.board[toRank][toFile] instanceof Pawn) // If the conditions for Enpassant are valid, remove the white pawn that advanced two squares
+                            Piece pawnPiece = chessBoard.board[fromRank][fromFile];
+                            chessBoard.board[toRank][toFile] = pawnPiece;
+                            pawnPiece.setRank(toRank);
+                            pawnPiece.setFile(toFile);
+                            chessBoard.board[3][oldFile] = null;
+                            chessBoard.board[fromRank][fromFile] = null;
+                        }
+                        else
+                        {
+                            if (chessBoard.makeMove(input, turn) == true)
                             {
-                                chessBoard.board[3][fromFile] = null;
+                                // Continue as normal
                             }
-                            if (checkMate(chessBoard, chessBoard.board, turn) == true) // If the move made causes checkmate, end the game accordingly
+                            else
                             {
-                                if (turn == true)
-                                {
-                                    System.out.println("Checkmate");
-                                    System.out.println("White wins");
-                                    return;
-                                }
-                                else
-                                {
-                                    System.out.println("Checkmate");
-                                    System.out.println("Black wins");
-                                    return;
-                                }
+                                continue; // Continue without flipping the turn
                             }
                         }
                     }
@@ -201,26 +199,24 @@ public class Game
                         {
                             return; // Ends the game if a player resigns
                         }
-                        if(chessBoard.makeMove(input, turn) == true) // Execute the move as normal otherwise
+                        else if (toFile == oldFile && fromRank == 4 && toRank == 5 && chessBoard.board[fromRank][fromFile] instanceof Pawn) // If the conditions for Enpassant are valid, remove the black pawn that advanced two squares
                         {
-                            if (toFile == oldFile && fromRank == 4 && toRank == 5 && chessBoard.board[toRank][toFile] instanceof Pawn) // If the conditions for Enpassant are valid, remove the black pawn that advanced two squares
+                            Piece pawnPiece = chessBoard.board[fromRank][fromFile];
+                            chessBoard.board[toRank][toFile] = pawnPiece;
+                            pawnPiece.setRank(toRank);
+                            pawnPiece.setFile(toFile);
+                            chessBoard.board[4][oldFile] = null;
+                            chessBoard.board[fromRank][fromFile] = null;
+                        }
+                        else
+                        {
+                            if (chessBoard.makeMove(input, turn) == true)
                             {
-                                chessBoard.board[5][fromFile] = null;
+                                // Continue as normal
                             }
-                            if (checkMate(chessBoard, chessBoard.board, turn)  == true) // If the move made causes checkmate, end the game accordingly
+                            else
                             {
-                                if (turn == true)
-                                {
-                                    System.out.println("Checkmate");
-                                    System.out.println("White wins");
-                                    return;
-                                }
-                                else
-                                {
-                                    System.out.println("Checkmate");
-                                    System.out.println("Black wins");
-                                    return;
-                                }
+                                continue; // Continue without flipping the turn
                             }
                         }
                     }
@@ -244,7 +240,6 @@ public class Game
                 }
                 else // In the case that the move is not valid and returns false
                 {
-                    chessBoard.drawBoard();
                     continue; // Continue without flipping the turn
                 }
                 if (input.contains("draw?")) // In the case that a player offers a draw:
@@ -308,8 +303,7 @@ public class Game
 /*
  * TODO: Bugs list
  * 1. Castling does not work
- * 2. Enpassant does not work, issue with isValidMove in pawn class because the only way a pawn can move diagonally is to capture a piece, does not account for en passant rules
- * 3. Promotion needs testing
- * 4. Check works, needs more testing
- * 5. Checkmate method only works for white
+ * 2. Promotion needs testing
+ * 3. Check works, needs more testing
+ * 4. Checkmate method only works for white
  */

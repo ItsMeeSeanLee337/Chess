@@ -93,7 +93,7 @@ public class Board
             for (int j = 0; j < 8; j++) 
             {
                 Piece piece = board[i][j];
-                if (piece instanceof King && piece.getColor() == color) 
+                if (piece instanceof King && piece.getColor().equals(color)) 
                 {
                     kingRank = i;
                     kingFile = j;
@@ -107,7 +107,7 @@ public class Board
             for (int j = 0; j < 8; j++) 
             {
                 Piece piece = board[i][j];
-                if (piece != null && piece.getColor() != color) 
+                if (piece != null && !piece.getColor().equals(color)) 
                 {
                     if (piece.isValidMove(kingRank, kingFile, board)) 
                     {
@@ -222,11 +222,11 @@ public class Board
      */
     public boolean promotion(int fromRank, int toRank, String color)
     {
-        if ((fromRank == 2 && toRank == 1) && color == "White") // Valid white promotion
+        if ((fromRank == 2 && toRank == 1) && color.equals("White")) // Valid white promotion
         {
             return true;
         }
-        else if ((fromRank == 7 && toRank == 8) && color == "Black") // Valid black promotion
+        else if ((fromRank == 7 && toRank == 8) && color.equals("Black")) // Valid black promotion
         {
             return true;
         }
