@@ -136,13 +136,12 @@ public class Game
                 }
                 System.out.print("Black's move: ");
             }
-            // TODO: Check if the move made is an illegal move, react appropriately
             String input = scanner.nextLine(); // read the user input as a single string, 
             if (resign(input, turn)) // In the case that a player submits resign as their move, the other player automatically wins
             {
                 return; // Ends the game if a player resigns
             }
-            else // In the case that the input does not contain "draw?" or "resign", we obtain the moves to process
+            else // In the case that the input does not contain "resign", we obtain the moves to process
             {
                 // Bottom 4 variables are for debugging
                 int fromFile = input.charAt(0) - 'a';
@@ -151,6 +150,86 @@ public class Game
                 int toRank = Character.getNumericValue(input.charAt(4)) - 1;
                 if(chessBoard.makeMove(input, turn) == true)
                 {
+                    if (turn == true && fromRank == 1 && toRank == 3 && chessBoard.board[toRank][toFile] instanceof Pawn) // Checking conditions for Enpassant, white pawn
+                    {
+                        int oldFile = toFile;
+                        chessBoard.drawBoard(); // If the conditions for Enpassant are satisfied, we prompt the other player for a move and check to see if they execute Enpassant
+                        turn = !turn; // Flip the turn  
+                        System.out.print("Black's move: ");
+                        input = scanner.nextLine();
+                        fromFile = input.charAt(0) - 'a';
+                        fromRank = Character.getNumericValue(input.charAt(1)) - 1;
+                        toFile = input.charAt(3) - 'a';
+                        toRank = Character.getNumericValue(input.charAt(4)) - 1;
+                        if (resign(input, turn)) // In the case that a player submits resign as their move, the other player automatically wins
+                        {
+                            return; // Ends the game if a player resigns
+                        }
+                        if(chessBoard.makeMove(input, turn) == true) // Execute the move as normal otherwise
+                        {
+                            if (toFile == oldFile && fromRank == 3 && toRank == 2 && chessBoard.board[toRank][toFile] instanceof Pawn) // If the conditions for Enpassant are valid, remove the white pawn that advanced two squares
+                            {
+                                chessBoard.board[3][fromFile] = null;
+                            }
+                            if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                            {
+                                if (turn == true)
+                                {
+                                    System.out.println("Checkmate");
+                                    System.out.println("Black wins");
+                                    return;
+                                }
+                                else
+                                {
+                                    System.out.println("Checkmate");
+                                    System.out.println("White wins");
+                                    return;
+                                }
+                            }
+                            chessBoard.drawBoard();
+                            turn = !turn; // Flip the turn 
+                        }
+                    }
+                    else if (turn == false && fromRank == 6 && toRank == 4 && chessBoard.board[toRank][toFile] instanceof Pawn) // Checking conditions for Enpassant, black pawn
+                    {
+                        int oldFile = toFile;
+                        chessBoard.drawBoard(); // If the conditions for Enpassant are satisfied, we prompt the other player for a move and check to see if they execute Enpassant
+                        turn = !turn; // Flip the turn  
+                        System.out.print("White's move: ");
+                        input = scanner.nextLine();
+                        fromFile = input.charAt(0) - 'a';
+                        fromRank = Character.getNumericValue(input.charAt(1)) - 1;
+                        toFile = input.charAt(3) - 'a';
+                        toRank = Character.getNumericValue(input.charAt(4)) - 1;
+                        if (resign(input, turn)) // In the case that a player submits resign as their move, the other player automatically wins
+                        {
+                            return; // Ends the game if a player resigns
+                        }
+                        if(chessBoard.makeMove(input, turn) == true) // Execute the move as normal otherwise
+                        {
+                            if (toFile == oldFile && fromRank == 4 && toRank == 5 && chessBoard.board[toRank][toFile] instanceof Pawn) // If the conditions for Enpassant are valid, remove the black pawn that advanced two squares
+                            {
+                                chessBoard.board[5][fromFile] = null;
+                            }
+                            if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                            {
+                                if (turn == true)
+                                {
+                                    System.out.println("Checkmate");
+                                    System.out.println("Black wins");
+                                    return;
+                                }
+                                else
+                                {
+                                    System.out.println("Checkmate");
+                                    System.out.println("White wins");
+                                    return;
+                                }
+                            }
+                            chessBoard.drawBoard();
+                            turn = !turn; // Flip the turn 
+                        }
+                    }
                     if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
                     {
                         if (turn == true)
@@ -186,7 +265,7 @@ public class Game
                     }
                     else
                     {
-                        if (chessBoard.isCheck("White") == true)
+                        if (chessBoard.isCheck("Black") == true)
                         {
                             System.out.println("check");
                         }
