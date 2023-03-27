@@ -1,6 +1,6 @@
 import java.util.Scanner;
 /**
- * Defines rules like Resigning, Check/Checkmate, Empassment, and Promotion
+ * Defines rules like Resigning, Check/Checkmate, Enpassant, and Promotion
  */
 public class Game 
 {
@@ -130,7 +130,7 @@ public class Game
             }
             else
             {
-                if (chessBoard.isCheck("White") == true)
+                if (chessBoard.isCheck("Black") == true)
                 {
                     System.out.println("check");
                 }
@@ -186,8 +186,6 @@ public class Game
                                     return;
                                 }
                             }
-                            chessBoard.drawBoard();
-                            turn = !turn; // Flip the turn 
                         }
                     }
                     else if (turn == false && fromRank == 6 && toRank == 4 && chessBoard.board[toRank][toFile] instanceof Pawn) // Checking conditions for Enpassant, black pawn
@@ -226,8 +224,6 @@ public class Game
                                     return;
                                 }
                             }
-                            chessBoard.drawBoard();
-                            turn = !turn; // Flip the turn 
                         }
                     }
                     if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
@@ -314,8 +310,8 @@ public class Game
 /*
  * TODO: Bugs list
  * 1. Need to test castling
- * 2. Need to implement empassment
+ * 2. Need to test Enpassant
  * 3. Need to test promotion
- * 4. Need to test check method
+ * 4. Check works, needs more testing
  * 5. Need to test checkMate method
  */

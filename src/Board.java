@@ -71,7 +71,6 @@ public class Board
             System.out.println(rank);
         }
         
-        System.out.print(" ");
         for (char file = 'a'; file <= 'h'; file++) 
         {
             System.out.print("  " + file + " ");
@@ -94,7 +93,7 @@ public class Board
             for (int j = 0; j < 8; j++) 
             {
                 Piece piece = board[i][j];
-                if (piece instanceof King && piece.getColor().equals(color)) 
+                if (piece instanceof King && piece.getColor() == color) 
                 {
                     kingRank = i;
                     kingFile = j;
@@ -108,9 +107,9 @@ public class Board
             for (int j = 0; j < 8; j++) 
             {
                 Piece piece = board[i][j];
-                if (piece != null && !piece.getColor().equals(color)) 
+                if (piece != null && piece.getColor() != color) 
                 {
-                    if (piece.isValidMove(kingFile, kingRank, board)) 
+                    if (piece.isValidMove(kingRank, kingFile, board)) 
                     {
                         return true;
                     }
