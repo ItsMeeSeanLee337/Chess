@@ -302,7 +302,7 @@ public class Game
 
 /*
  * TODO: Bugs list
- * 1. Castling does not work
+ * 1. Castling needs testing
  * 2. Promotion needs testing
  * 3. Check works, needs more testing
  * 4. Checkmate method only works for white

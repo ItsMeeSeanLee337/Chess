@@ -159,9 +159,9 @@ public class Board
     {
         // Parse the move string and get the king's starting and ending positions
         int fromFile = move.charAt(0) - 'a';
-        int fromRank = 8 - (move.charAt(1) - '0');
+        int fromRank = Character.getNumericValue(move.charAt(1)) - 1;
         int toFile = move.charAt(3) - 'a';
-        int toRank = 8 - (move.charAt(4) - '0');
+        int toRank = Character.getNumericValue(move.charAt(4)) - 1;
         
         // Check that the move is a castling move
         if (Math.abs(fromFile - toFile) != 2 || fromRank != toRank) 
@@ -179,7 +179,7 @@ public class Board
         
         // Check that there are no pieces between the king and rook
         int rookFile = toFile == 6 ? 7 : 0;
-        int direction = toFile > fromFile ? 1 : -1;
+        int direction = toFile > fromFile ? 1 : -1; // 1 = right, -1 = left
         for (int i = fromFile + direction; i != rookFile; i += direction) 
         {
             if (board[fromRank][i] != null) 
@@ -195,16 +195,28 @@ public class Board
         }
         
         // Check that the squares the king passes over are not attacked
-        int passFile = fromFile + direction;
-        int[] passRanks = {fromRank, fromRank, fromRank};
-        int[] attackRanks = {fromRank - 1, fromRank, fromRank + 1};
-        for (int i = 0; i < 3; i++) 
+        if (direction == 1) // Moving towards the right
         {
-            if (isSquareAttacked(passFile, passRanks[i], color, board)) 
+            if (isSquareAttacked(fromFile + 1, fromRank, color, board))
             {
                 return false;
             }
-            if (board[attackRanks[i]][passFile] != null) 
+            else if (isSquareAttacked(fromFile + 2, fromRank, color, board))
+            {
+                return false;
+            }
+        }
+        else // Moving towards the left
+        {
+            if (isSquareAttacked(fromFile - 1, fromRank, color, board))
+            {
+                return false;
+            }
+            else if (isSquareAttacked(fromFile - 2, fromRank, color, board))
+            {
+                return false;
+            }
+            else if (isSquareAttacked(fromFile - 3, fromRank, color, board))
             {
                 return false;
             }
@@ -261,6 +273,16 @@ public class Board
         {
             if (isValidCastlingMove(move, "White") == true)
             {
+                if (toFile == 1)
+                {
+                    board[0][2] = new Rook("Black", 0, 2);
+                    board[0][0] = null;
+                }
+                else
+                {
+                    board[0][5] = new Rook("Black", 0, 5);
+                    board[0][7] = null;
+                }
                 board[fromRank][fromFile] = null;
                 board[toRank][toFile] = fromPiece;
                 fromPiece.setRank(toRank);
@@ -344,6 +366,16 @@ public class Board
         {
             if (isValidCastlingMove(move, "Black") == true)
             {
+                if (toFile == 1)
+                {
+                    board[7][2] = new Rook("Black", 0, 2);
+                    board[7][0] = null;
+                }
+                else
+                {
+                    board[7][5] = new Rook("Black", 0, 5);
+                    board[7][7] = null;
+                }
                 board[fromRank][fromFile] = null;
                 board[toRank][toFile] = fromPiece;
                 fromPiece.setRank(toRank);
