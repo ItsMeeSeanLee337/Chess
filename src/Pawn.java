@@ -14,7 +14,7 @@ public class Pawn extends Piece {
      */     
     public Pawn(String color, int rank, int file) 
     {
-        super(color, color.equals("White") ? "wP" : "bP", rank, file);
+        super(color, color.equals("White") ? "wp" : "bp", rank, file);
         this.hasMoved = false;
     }
     /**
