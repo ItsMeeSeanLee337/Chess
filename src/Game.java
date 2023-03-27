@@ -39,13 +39,13 @@ public class Game
     public static boolean checkMate(Board chessBoard, Piece[][] board, boolean turn) // TODO: Validate if checkmate has been achieved, react appropriately
     {
         String color;
-        if (turn = true)
+        if (turn == true)
         {
-            color = "White";
+            color = "Black";
         }
         else
         {
-            color = "Black";
+            color = "White";
         }
         int kingRank = -1;
         int kingFile = -1;
@@ -56,7 +56,7 @@ public class Game
             for (int j = 0; j < 8; j++) 
             {
                 Piece piece = board[i][j];
-                if (piece instanceof King && piece.getColor().equals(color)) 
+                if (piece instanceof King && piece.getColor() == color) 
                 {
                     kingRank = i;
                     kingFile = j;
@@ -64,7 +64,7 @@ public class Game
             }
         }
     
-        if (chessBoard.isCheck("color") == false) // If the king is not in check, then checkmate is not possible
+        if (chessBoard.isCheck(color) == false) // If the king is not in check, then checkmate is not possible
         {
             return false;
         }
@@ -82,26 +82,29 @@ public class Game
 
                     int destRow = kingRank + row;
                     int destCol = kingFile + col;
-                    // Check if the king can move to this position
-                    Piece tempPiece = board[destRow][destCol];
-                    if (king.isValidMove(destRow, destCol,board)) 
+                    if (destRow >= 0 && destRow < 8 && destCol >= 0 && destCol < 8) // Check if we are out of bounds
                     {
-                        // Move the king to this position and check if it is still in check
-                        board[destRow][destCol] = king;
-                        king.setRank(destRow);
-                        king.setFile(destCol);
-
-                        boolean stillCheck = chessBoard.isCheck("White");
-
-                        // Undo the move
-                        board[destRow][destCol] = tempPiece;
-                        king.setRank(kingRank);
-                        king.setFile(kingFile);
-
-                        // If the king can move out of check, then it is not checkmate
-                        if (stillCheck == false) 
+                        // Check if the king can move to this position
+                        Piece tempPiece = board[destRow][destCol];
+                        if (king.isValidMove(destRow, destCol, board)) 
                         {
-                            return false;
+                            // Move the king to this position and check if it is still in check
+                            board[destRow][destCol] = king;
+                            king.setRank(destRow);
+                            king.setFile(destCol);
+    
+                            boolean stillCheck = chessBoard.isCheck(color);
+    
+                            // Undo the move
+                            board[destRow][destCol] = tempPiece;
+                            king.setRank(kingRank);
+                            king.setFile(kingFile);
+    
+                            // If the king can move out of check, then it is not checkmate
+                            if (!stillCheck) 
+                            {
+                                return false;
+                            }
                         }
                     }
                 }
@@ -171,18 +174,18 @@ public class Game
                             {
                                 chessBoard.board[3][fromFile] = null;
                             }
-                            if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                            if (checkMate(chessBoard, chessBoard.board, turn) == true) // If the move made causes checkmate, end the game accordingly
                             {
                                 if (turn == true)
                                 {
                                     System.out.println("Checkmate");
-                                    System.out.println("Black wins");
+                                    System.out.println("White wins");
                                     return;
                                 }
                                 else
                                 {
                                     System.out.println("Checkmate");
-                                    System.out.println("White wins");
+                                    System.out.println("Black wins");
                                     return;
                                 }
                             }
@@ -209,35 +212,35 @@ public class Game
                             {
                                 chessBoard.board[5][fromFile] = null;
                             }
-                            if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                            if (checkMate(chessBoard, chessBoard.board, turn)  == true) // If the move made causes checkmate, end the game accordingly
                             {
                                 if (turn == true)
-                                {
-                                    System.out.println("Checkmate");
-                                    System.out.println("Black wins");
-                                    return;
-                                }
-                                else
                                 {
                                     System.out.println("Checkmate");
                                     System.out.println("White wins");
                                     return;
                                 }
+                                else
+                                {
+                                    System.out.println("Checkmate");
+                                    System.out.println("Black wins");
+                                    return;
+                                }
                             }
                         }
                     }
-                    if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                    if (checkMate(chessBoard, chessBoard.board, turn)  == true) // If the move made causes checkmate, end the game accordingly
                     {
                         if (turn == true)
                         {
                             System.out.println("Checkmate");
-                            System.out.println("Black wins");
+                            System.out.println("White wins");
                             return;
                         }
                         else
                         {
                             System.out.println("Checkmate");
-                            System.out.println("White wins");
+                            System.out.println("Black wins");
                             return;
                         }
                     }
@@ -277,7 +280,7 @@ public class Game
                         // In the very specific case that the other player does not accept the draw, and inputs an illegal move, then decides to accept the draw after inputting the illegal move we get an index out of bounds error
                         if(chessBoard.makeMove(input, turn) == true)
                         {
-                            if (checkMate(chessBoard, chessBoard.board, turn)) // If the move made causes checkmate, end the game accordingly
+                            if (checkMate(chessBoard, chessBoard.board, turn)  == true) // If the move made causes checkmate, end the game accordingly
                             {
                                 if (turn == true)
                                 {
