@@ -283,15 +283,19 @@ public class Board
                     switch(promotionPiece)
                     {
                         case 'R': // Rook
+                            board[fromRank][fromFile] = null;
                             board[toRank][toFile] = new Rook("White", toRank, toFile);
                             break;
                         case 'N': // Knight
+                            board[fromRank][fromFile] = null;
                             board[toRank][toFile] = new Knight("White", toRank, toFile);
                             break;
                         case 'B': // Bishop
+                            board[fromRank][fromFile] = null;
                             board[toRank][toFile] = new Bishop("White", toRank, toFile);
                             break;
                         default: // Queen
+                            board[fromRank][fromFile] = null;
                             board[toRank][toFile] = new Queen("White", toRank, toFile);
                             break;
                     }
@@ -362,15 +366,19 @@ public class Board
                     switch (promotionPiece)
                     {
                         case 'R': // Rook
+                            board[fromRank][fromFile] = null;
                             board[toRank][toFile] = new Rook("Black", toRank, toFile);
                             break;
                         case 'N': // Knight
+                            board[fromRank][fromFile] = null;
                             board[toRank][toFile] = new Knight("Black", toRank, toFile);
                             break;
                         case 'B': // Bishop
+                            board[fromRank][fromFile] = null;
                             board[toRank][toFile] = new Bishop("Black", toRank, toFile);
                             break;
                         default: // Queen
+                            board[fromRank][fromFile] = null;
                             board[toRank][toFile] = new Queen("Black", toRank, toFile);
                             break;
                     }
