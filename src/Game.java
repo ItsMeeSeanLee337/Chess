@@ -188,10 +188,18 @@ public class Game
                 {
                     if (turn == true)
                     {
+                        if (chessBoard.isCheck("White") == true)
+                        {
+                            System.out.println("check");
+                        }
                         System.out.print("White's move: ");
                     }
                     else
                     {
+                        if (chessBoard.isCheck("White") == true)
+                        {
+                            System.out.println("check");
+                        }
                         System.out.print("Black's move: ");
                     }
                     input = scanner.nextLine(); // If the other player sumbits "draw" as their move, the game ends
