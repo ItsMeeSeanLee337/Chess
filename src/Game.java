@@ -10,7 +10,7 @@ public class Game
      * @param turn True during the players turn
      * @return True for resigning, false if not
      */
-    public static boolean resign(String input, Boolean turn) // TODO: resign the game for valid input by user
+    public static boolean resign(String input, Boolean turn)
     {
         if (input.contains("resign")) // In the case that a player submits resign as their move, the other player automatically wins
         {
@@ -36,7 +36,7 @@ public class Game
      * @param color Black/White
      * @return true if a king of a certain color is in checkmate
      */
-    public static boolean checkMate(Board chessBoard, Piece[][] board, boolean turn) // TODO: Validate if checkmate has been achieved, react appropriately
+    public static boolean checkMate(Board chessBoard, Piece[][] board, boolean turn)
     {
         String color;
         if (turn == true)
@@ -75,14 +75,9 @@ public class Game
             {
                 for (int col = -1; col <= 1; col++) 
                 {
-                    if (row == 0 && col == 0) 
-                    {
-                        continue;
-                    }
-
                     int destRow = kingRank + row;
                     int destCol = kingFile + col;
-                    if (destRow >= 0 && destRow < 8 && destCol >= 0 && destCol < 8) // Check if we are out of bounds
+                    if ((destRow >= 0 && destRow < 8) && (destCol >= 0 && destCol < 8)) // Check if we are out of bounds
                     {
                         // Check if the king can move to this position
                         Piece tempPiece = board[destRow][destCol];
@@ -229,7 +224,7 @@ public class Game
                             }
                         }
                     }
-                    if (checkMate(chessBoard, chessBoard.board, turn)  == true) // If the move made causes checkmate, end the game accordingly
+                    if (checkMate(chessBoard, chessBoard.board, turn) == true) // If the move made causes checkmate, end the game accordingly
                     {
                         if (turn == true)
                         {
@@ -312,9 +307,9 @@ public class Game
 
 /*
  * TODO: Bugs list
- * 1. Need to test castling
- * 2. Need to test Enpassant
- * 3. Need to test promotion
+ * 1. Castling does not work
+ * 2. Enpassant does not work, issue with isValidMove in pawn class because the only way a pawn can move diagonally is to capture a piece, does not account for en passant rules
+ * 3. Promotion needs testing
  * 4. Check works, needs more testing
- * 5. Need to test checkMate method
+ * 5. Checkmate method only works for white
  */
