@@ -222,11 +222,11 @@ public class Board
      */
     public boolean promotion(int fromRank, int toRank, String color)
     {
-        if ((fromRank == 2 && toRank == 1) && color.equals("White")) // Valid white promotion
+        if ((fromRank == 1 && toRank == 0) && color.equals("Black")) // Valid white promotion
         {
             return true;
         }
-        else if ((fromRank == 7 && toRank == 8) && color.equals("Black")) // Valid black promotion
+        else if ((fromRank == 6 && toRank == 7) && color.equals("White")) // Valid black promotion
         {
             return true;
         }
@@ -267,25 +267,33 @@ public class Board
                 fromPiece.setFile(toFile);
                 return true;
             }
-            else if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "White")
+            else if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color.equals("White"))
             {
-                if (promotion(fromRank, toRank,"White")) // If it is a valid promotion move act accordingly
+                if (promotion(fromRank, toRank,"White") && (fromPiece instanceof Pawn)) // If it is a valid promotion move act accordingly
                 {
-                    char promotionPiece = move.charAt(6);
-                    switch (promotionPiece)
+                    char promotionPiece;
+                    if (move.length() >= 7) 
+                    {
+                        promotionPiece = move.charAt(6);
+                    } 
+                    else 
+                    {
+                        promotionPiece = 'Q'; // default to queen if no promotion piece is specified
+                    }
+                    switch(promotionPiece)
                     {
                         case 'R': // Rook
-                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Rook("White", toRank, toFile);
+                            break;
                         case 'N': // Knight
-                        board[toRank][toFile] = null;
                             board[toRank][toFile] = new Knight("White", toRank, toFile);
+                            break;
                         case 'B': // Bishop
-                        board[toRank][toFile] = null;
                             board[toRank][toFile] = new Bishop("White", toRank, toFile);
+                            break;
                         default: // Queen
-                        board[toRank][toFile] = null;
                             board[toRank][toFile] = new Queen("White", toRank, toFile);
+                            break;
                     }
                     if (isCheck("White") == true) // If the move puts the player into check, reverse the move and prompt the user for a valid input
                     {
@@ -338,25 +346,33 @@ public class Board
                 fromPiece.setFile(toFile);
                 return true;
             }
-            else if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color == "Black")
+            else if (fromPiece.isValidMove(toRank, toFile, board) && fromPiece.color.equals("Black"))
             {
-                if (promotion(fromRank, toRank,"Black")) // If it is a valid promotion move act accordingly
+                if (promotion(fromRank, toRank,"Black") && (fromPiece instanceof Pawn)) // If it is a valid promotion move act accordingly
                 {
-                    char promotionPiece = move.charAt(6);
+                    char promotionPiece;
+                    if (move.length() >= 7) 
+                    {
+                        promotionPiece = move.charAt(6);
+                    } 
+                    else 
+                    {
+                        promotionPiece = 'Q'; // default to queen if no promotion piece is specified
+                    }
                     switch (promotionPiece)
                     {
                         case 'R': // Rook
-                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Rook("Black", toRank, toFile);
+                            break;
                         case 'N': // Knight
-                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Knight("Black", toRank, toFile);
+                            break;
                         case 'B': // Bishop
-                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Bishop("Black", toRank, toFile);
+                            break;
                         default: // Queen
-                            board[toRank][toFile] = null;
                             board[toRank][toFile] = new Queen("Black", toRank, toFile);
+                            break;
                     }
                     if (isCheck("Black") == true) // If the move puts the player into check, reverse the move and prompt the user for a valid input
                     {
