@@ -2,7 +2,7 @@ import java.util.Scanner;
 /**
  * Defines rules like Resigning, Check/Checkmate, Enpassant, and Promotion
  */
-public class Game 
+public class Chess 
 {
     /**
      * Handles for when a player decides to resign
