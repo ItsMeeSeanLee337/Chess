@@ -273,9 +273,9 @@ public class Board
         {
             if (isValidCastlingMove(move, "White") == true)
             {
-                if (toFile == 1)
+                if (toFile == 2)
                 {
-                    board[0][2] = new Rook("Black", 0, 2);
+                    board[0][3] = new Rook("Black", 0, 2);
                     board[0][0] = null;
                 }
                 else
@@ -366,9 +366,9 @@ public class Board
         {
             if (isValidCastlingMove(move, "Black") == true)
             {
-                if (toFile == 1)
+                if (toFile == 2)
                 {
-                    board[7][2] = new Rook("Black", 0, 2);
+                    board[7][3] = new Rook("Black", 0, 2);
                     board[7][0] = null;
                 }
                 else
