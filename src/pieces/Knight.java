@@ -1,3 +1,5 @@
+package pieces;
+
 /**
  * Defines a Knight piece
  */

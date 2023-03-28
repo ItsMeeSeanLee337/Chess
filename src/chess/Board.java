@@ -1,3 +1,11 @@
+package chess;
+import pieces.Bishop;
+import pieces.King;
+import pieces.Knight;
+import pieces.Pawn;
+import pieces.Piece;
+import pieces.Queen;
+import pieces.Rook;
 /**
  * Draws/Initiliazes the board and handles movement/boundries
  */
